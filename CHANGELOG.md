@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [0.1.5] - 2026-05-27
+
+### Fixed
+
+- GitHub releases are now published publicly so HACS can show version numbers instead of commit hashes.
+
 ## [0.1.4] - 2026-05-27
 
 ### Fixed
