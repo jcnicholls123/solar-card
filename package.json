@@ -1,6 +1,6 @@
 {
   "name": "solar-card",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Lovelace custom card for tracking the Sun",
   "keywords": [
     "home-assistant",

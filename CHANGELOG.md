@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [0.1.6] - 2026-05-27
+
+### Fixed
+
+- Granted the release workflow permission to publish GitHub releases for HACS.
+
 ## [0.1.5] - 2026-05-27
 
 ### Fixed
