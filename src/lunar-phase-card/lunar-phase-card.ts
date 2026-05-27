@@ -369,6 +369,8 @@ export class LunarPhaseCard extends LunarBaseCard {
     const bg = appearance?.custom_background;
     if (bg && appearance.hide_background !== true) {
       styles['--lpc-bg-image'] = `url(${bg})`;
+    } else if (appearance.hide_background !== true) {
+      styles['--lpc-bg-image'] = this._weatherBackground();
     }
     // header styles
     const { _configHeaderStyles, _configLabelStyles } = this;
@@ -384,6 +386,35 @@ export class LunarPhaseCard extends LunarBaseCard {
     });
 
     return styles;
+  }
+
+  private _weatherBackground(): string {
+    const state = this._weatherState();
+    const backgroundMap: Record<string, string> = {
+      clear: 'linear-gradient(180deg, #50b7ff 0%, #9fddff 46%, #ffe7a6 100%)',
+      'clear-night': 'linear-gradient(180deg, #12345c 0%, #2f5f8f 58%, #8bb4d8 100%)',
+      cloudy: 'linear-gradient(180deg, #7fb6d8 0%, #b9d5e6 48%, #edf4f8 100%)',
+      exceptional: 'linear-gradient(180deg, #53aee8 0%, #c4e8fb 54%, #f7e9b1 100%)',
+      fog: 'linear-gradient(180deg, #9db6c2 0%, #d2dde2 54%, #f4f7f7 100%)',
+      hail: 'linear-gradient(180deg, #6c95b8 0%, #a9c4d8 50%, #eef6fb 100%)',
+      lightning: 'linear-gradient(180deg, #4b5d82 0%, #7d8fb1 48%, #d4d7e7 100%)',
+      'lightning-rainy': 'linear-gradient(180deg, #40597a 0%, #6e89a8 48%, #b9cad8 100%)',
+      partlycloudy: 'linear-gradient(180deg, #57aeea 0%, #a9d7f3 45%, #f2f7fb 100%)',
+      pouring: 'linear-gradient(180deg, #456987 0%, #7296ad 48%, #b8cbd7 100%)',
+      rainy: 'linear-gradient(180deg, #5f86a3 0%, #91afc3 48%, #d0dde5 100%)',
+      snowy: 'linear-gradient(180deg, #8fb7d7 0%, #dbeaf4 55%, #ffffff 100%)',
+      'snowy-rainy': 'linear-gradient(180deg, #7297b5 0%, #b8cedd 52%, #eef5f8 100%)',
+      sunny: 'linear-gradient(180deg, #3bb0ff 0%, #8ed8ff 45%, #ffe29a 100%)',
+      windy: 'linear-gradient(180deg, #62ace1 0%, #b5d7ea 48%, #f0f7fb 100%)',
+      'windy-variant': 'linear-gradient(180deg, #6da9d6 0%, #b7d4e7 48%, #edf6fa 100%)',
+    };
+    return backgroundMap[state] || backgroundMap.sunny;
+  }
+
+  private _weatherState(): string {
+    const weatherEntity = this.config?.weather_entity || Object.keys(this.hass.states).find((entityId) => entityId.startsWith('weather.'));
+    const state = weatherEntity ? this.hass.states[weatherEntity]?.state : undefined;
+    return state && !['unknown', 'unavailable'].includes(state) ? state.toLowerCase() : 'sunny';
   }
 
   static get styles(): CSSResultGroup {

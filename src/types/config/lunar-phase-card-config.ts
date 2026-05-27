@@ -92,6 +92,11 @@ export interface LunarPhaseCardConfig extends LovelaceCardConfig {
    */
   custom_background?: string;
   /**
+   * Optional weather entity used for dynamic sky backgrounds.
+   * If omitted, the first weather.* entity will be used when available.
+   */
+  weather_entity?: string;
+  /**
    * Hide star field background
    */
   hide_starfield?: boolean;
@@ -216,6 +221,7 @@ export const VisualBackgroundOptions = [
   'hide_background',
   'hide_starfield',
   'custom_background',
+  'weather_entity',
   'custom_theme',
   'theme_mode',
 ] as const;

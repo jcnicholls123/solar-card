@@ -42,6 +42,7 @@ graph_chart_config:
   show_current: true
   show_highest: true
 daylight_hours_entity: sensor.daylight_hours
+weather_entity: weather.home
 ```
 
 ## Configuration
@@ -58,6 +59,7 @@ daylight_hours_entity: sensor.daylight_hours
 | `compact_view` | boolean | Enables compact layout. |
 | `hide_background` | boolean | Hides the card background. |
 | `custom_background` | string | Custom background image URL. |
+| `weather_entity` | string | Optional weather entity for sunny, cloudy, rainy, snowy, foggy, and stormy sky backgrounds. If omitted, the first `weather.*` entity is used. |
 | `hide_starfield` | boolean | Hides the starfield layer. |
 | `hide_buttons` | boolean | Hides section buttons. |
 | `hide_items` | list | Data items to hide. |
