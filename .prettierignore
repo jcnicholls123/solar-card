@@ -1,0 +1,10 @@
+/dist
+/.vscode
+/build
+.devcontainer
+package-lock.json
+package.json
+*.md
+*.yaml
+*.yml
+*.txt
