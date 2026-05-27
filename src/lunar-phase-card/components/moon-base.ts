@@ -65,7 +65,7 @@ export class LunarMoonBase extends LunarBaseCard {
     const width = this._cardWidth;
     const offsetTop = this._cardOffsetTop;
     const availableHeight = width * 0.5 - offsetTop;
-    const moonSize = Math.min(width / 3.2, availableHeight, 150);
+    const moonSize = Math.min(width / 2.7, availableHeight, 190);
     // console.debug('moonSize calculation:', { width, offsetTop, availableHeight, moonSize });
 
     return styleMap({

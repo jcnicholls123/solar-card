@@ -55,7 +55,7 @@ weather_entity: weather.home
 | `latitude` | number | Custom latitude when `location_source: custom`. |
 | `longitude` | number | Custom longitude when `location_source: custom`. |
 | `language` | string | Language code. Defaults to Home Assistant language or `en`. |
-| `default_section` | string | `base`, `calendar`, `horizon`, or `full_calendar`. |
+| `default_section` | string | `base` or `horizon`. Calendar views were removed in `0.1.3`. |
 | `compact_view` | boolean | Enables compact layout. |
 | `hide_background` | boolean | Hides the card background. |
 | `custom_background` | string | Custom background image URL. |

@@ -9,8 +9,6 @@ import './components/card';
 import './components/moon-compact-view';
 import './components/moon-base';
 import './components/moon-data-info';
-import './components/moon-calendar-popup';
-import './components/moon-calendar-footer';
 import './components/moon-chart-dynamic';
 import './components/moon-chart-horizon';
 import './components/lunar-phase-header';
@@ -18,7 +16,7 @@ import '../shared/lunar-star-particles';
 import { HomeAssistant, LovelaceCardEditor } from '../ha';
 import { Moon } from '../model/moon';
 import { Store } from '../model/store';
-import { filterItemFromMoonData, MoonData } from '../types/config/chart-config';
+import { MoonData } from '../types/config/chart-config';
 import { CSS_FONT_SIZE } from '../types/config/font-config';
 import { LunarPhaseCardConfig } from '../types/config/lunar-phase-card-config';
 import { computeCssColor } from '../utils/compute-color';
@@ -51,14 +49,12 @@ export class LunarPhaseCard extends LunarBaseCard {
   @state() _cardReady: boolean = false;
   @property() public _selectedDate?: Date;
 
-  @state() _calendarPopup: boolean = false;
-
   private _resizeObserver?: ResizeObserver;
 
   public setConfig(config: LunarPhaseCardConfig): void {
     super.setConfig(config);
     this._cardReady = false;
-    this._activePage = this.config?.default_section || SECTION.BASE;
+    this._activePage = this._normalizeSection(this.config?.default_section);
     this._cardReady = true;
   }
 
@@ -147,15 +143,13 @@ export class LunarPhaseCard extends LunarBaseCard {
           .cardWidth=${this._cardWidth}
           .cardHeight=${this._cardHeight}
           .appearance=${appearance}
-          .calendarPopup=${this._activePage === SECTION.FULL_CALENDAR}
+          .calendarPopup=${false}
           .activePage=${this._activePage}
           .changingContent=${this._state === MoonState.CONTENT_CHANGING}
         >
           ${choose(this._activePage, [
             [SECTION.BASE, () => this._renderBaseSection()],
-            [SECTION.CALENDAR, () => this._renderCalendarSection()],
             [SECTION.HORIZON, () => this._renderHorizonSection()],
-            [SECTION.FULL_CALENDAR, () => this._renderCalendarSection()],
           ])}
         </lunar-card>
       </ha-card>
@@ -202,61 +196,6 @@ export class LunarPhaseCard extends LunarBaseCard {
               .chunkedLimit=${chunkLimit}
             ></lunar-moon-data-info
           ></lunar-moon-base>`}`;
-  }
-
-  private _renderCalendarSection(): TemplateResult {
-    const moonData = filterItemFromMoonData(this._filteredData, ['position', 'nextPhase']);
-    if (this._activePage === SECTION.FULL_CALENDAR) {
-      return html`
-        <lunar-moon-calendar-popup
-          slot="content"
-          .hass=${this.hass}
-          .store=${this.store}
-          .card=${this}
-          .config=${this.config}
-          .moon=${this.moon}
-          .moonData=${moonData}
-          .south=${this._configLocation?.southern_hemisphere === true}
-          @calendar-action=${this._handleCalendarAction}
-        >
-        </lunar-moon-calendar-popup>
-      `;
-    }
-
-    return html`
-      ${this._renderHeader('header', 'Solar day')}
-      <lunar-moon-base slot="content" .activePage=${this._activePage} .store=${this.store}>
-        ${this.renderMoonImage()}
-        <div slot="moon-info" class="solar-day-panel">
-          <lunar-moon-data-info .moonData=${moonData} .chunkedLimit=${4}></lunar-moon-data-info>
-          <lunar-moon-calendar-footer
-            .hass=${this.hass}
-            .store=${this.store}
-            .config=${this.config}
-            .card=${this}
-            .moonData=${moonData}
-            .hideDetails=${true}
-            @popup-show=${this._handleCalendarPopup}
-          ></lunar-moon-calendar-footer>
-        </div>
-      </lunar-moon-base>
-    `;
-  }
-
-  private _handleCalendarPopup(ev: CustomEvent) {
-    ev.stopPropagation();
-    this._activePage = SECTION.FULL_CALENDAR;
-  }
-  private _handleCalendarAction(ev: CustomEvent) {
-    ev.stopPropagation();
-    const action = ev.detail.action;
-    if (action === 'close') {
-      this._activePage = SECTION.CALENDAR;
-    } else if (action === 'date-select' && ev.detail.date) {
-      this._selectedDate = ev.detail.date;
-      this._calendarPopup = false;
-      this._activePage = SECTION.CALENDAR;
-    }
   }
 
   private _renderHorizonSection(): TemplateResult {
@@ -355,7 +294,7 @@ export class LunarPhaseCard extends LunarBaseCard {
     ev.stopPropagation();
     const section = ev.detail.section;
     this._state = MoonState.CONTENT_CHANGING;
-    this._activePage = section;
+    this._activePage = this._normalizeSection(section);
     setTimeout(() => {
       this._state = MoonState.READY;
     }, 500);
@@ -368,6 +307,10 @@ export class LunarPhaseCard extends LunarBaseCard {
       '--has-bg': appearance?.hide_background !== true,
     };
     return classMap(classes);
+  }
+
+  private _normalizeSection(section?: SECTION): SECTION {
+    return section === SECTION.HORIZON ? SECTION.HORIZON : SECTION.BASE;
   }
 
   private _computeStyles() {
@@ -453,11 +396,6 @@ export class LunarPhaseCard extends LunarBaseCard {
           height: 100%;
           pointer-events: none;
           z-index: 0;
-        }
-        .solar-day-panel {
-          display: grid;
-          gap: calc(var(--lunar-card-gutter) * 0.5);
-          width: 100%;
         }
         ha-card {
           position: relative;

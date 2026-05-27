@@ -9,13 +9,12 @@ All notable changes to Solar Card are tracked here.
 - Set the project version to `0.1.3` while the card is still stabilising.
 - Replaced the old lunar project changelog with a Solar Card changelog.
 - Updated package repository metadata to `jcnicholls123/homeass`.
+- Removed the calendar view from the card.
+- Removed bundled moon/lunar image assets from the repository.
+- Enlarged the weather visual and added CSS animation for sunny, cloudy, rainy, stormy, snowy, foggy, and windy states.
 
 ### Fixed
 
-- The date/calendar tab now shows useful solar-day details instead of an empty sky view.
-- Selecting a date in the full calendar now returns to the solar-day view for that date.
-- Monthly calendar icons now use solar graphics instead of moon phase crescents.
-- Weather graphics were enlarged and given a clearer glow/halo treatment.
 - Weather icons now appear in the main visual area for sunny, cloudy, rainy, stormy, snowy, foggy, and windy states.
 - Text contrast was improved for bright sky backgrounds.
 - Daytime cards no longer show the star overlay unless the weather state is `clear-night`.

@@ -6,32 +6,13 @@ import {
   mdiChevronLeft,
   mdiChevronRight,
   mdiClose,
-  mdiMoonFull,
-  mdiMoonNew,
   mdiRestore,
   mdiWeatherSunny,
 } from '@mdi/js';
 
 import { version } from '../package.json';
 
-const BG_VERSION_TAG = '1.7.3';
-const BACKGROUND_IMAGE_URL = `https://cdn.jsdelivr.net/gh/ngocjohn/lunar-phase-card@${BG_VERSION_TAG}/background/`;
-const BACKGROUND_URL = (index: number) => `${BACKGROUND_IMAGE_URL}moon_bg_${index}.png`;
-
-export const EDITOR_CUSTOM_BG = [BACKGROUND_URL(0), BACKGROUND_URL(1), BACKGROUND_URL(2), BACKGROUND_URL(3)];
-
-// updload moon pic in v1.14.0 to reduce size of initial package
-const MOON_PIC_TAG = '1.14.0';
-const MOON_URL = `https://cdn.jsdelivr.net/gh/ngocjohn/lunar-phase-card@${MOON_PIC_TAG}/moon_pic/`;
-export const MOON_PIC_URL = (index: number) => `${MOON_URL}${index}_moon.png`;
-
-// moon pic webp format tag
-const MOON_WEBP_TAG = '1.4.1';
-const MOON_WEBP_URL = `https://cdn.jsdelivr.net/gh/ngocjohn/lunar-phase-card@${MOON_WEBP_TAG}/static/moon_pic/`;
-export const MOON_PIC_WEBP = (index: number) => `${MOON_WEBP_URL}${index}_moon.webp`;
-
 export const CARD_VERSION = `v${version}`;
-export const BLUE_BG = BACKGROUND_URL(0);
 
 export const enum MoonState {
   READY = 'ready',
@@ -44,8 +25,6 @@ export const ICON = {
   CHART: mdiChartBellCurve,
   CHEVRON_DOWN: mdiChevronDown,
   LEFT: mdiChevronLeft,
-  MOONFULL: mdiMoonFull,
-  MOONNEW: mdiMoonNew,
   RESTORE: mdiRestore,
   RIGHT: mdiChevronRight,
   SEARCH: mdiCalendarSearch,

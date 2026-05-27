@@ -6,7 +6,7 @@ import { fireEvent } from '../../ha';
 import { CardArea } from '../../types/card-area';
 import { LunarBaseCard } from '../base-card';
 
-const SectionsList = [SECTION.BASE, SECTION.CALENDAR, SECTION.HORIZON];
+const SectionsList = [SECTION.BASE, SECTION.HORIZON];
 const SECTION_ICON: Record<SECTION, string> = {
   [SECTION.BASE]: ICON.WEATHER,
   [SECTION.CALENDAR]: ICON.CALENDAR,

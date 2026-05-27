@@ -121,15 +121,15 @@ export class LunarMoonImage extends LitElement {
       :host {
         display: block;
         width: 100%;
-        max-width: 190px;
+        max-width: 220px;
       }
       .moon-image {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
-        min-width: 96px;
-        min-height: 96px;
+        min-width: 132px;
+        min-height: 132px;
         transition: transform 0.5s;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -148,6 +148,15 @@ export class LunarMoonImage extends LitElement {
         background: radial-gradient(circle, rgba(255, 245, 174, 0.5) 0%, rgba(255, 206, 73, 0.16) 48%, transparent 72%);
       }
 
+      .moon-image::after {
+        content: '';
+        position: absolute;
+        inset: 16%;
+        border-radius: 50%;
+        opacity: 0;
+        pointer-events: none;
+      }
+
       .moon-image ha-icon {
         position: relative;
         z-index: 1;
@@ -155,6 +164,26 @@ export class LunarMoonImage extends LitElement {
         height: 92%;
         color: #f7b731;
         filter: drop-shadow(0 6px 16px rgba(118, 85, 21, 0.25)) drop-shadow(0 0 18px rgba(255, 215, 87, 0.65));
+        animation: solar-weather-float 4.8s ease-in-out infinite;
+      }
+
+      .moon-image[data-weather='sunny']::before,
+      .moon-image[data-weather='clear']::before,
+      .moon-image[data-weather='exceptional']::before {
+        animation: solar-weather-pulse 3.4s ease-in-out infinite;
+      }
+
+      .moon-image[data-weather='sunny']::after,
+      .moon-image[data-weather='clear']::after,
+      .moon-image[data-weather='exceptional']::after {
+        opacity: 0.7;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg 16deg,
+          rgba(255, 220, 84, 0.55) 16deg 24deg,
+          transparent 24deg 45deg
+        );
+        animation: solar-weather-spin 18s linear infinite;
       }
 
       .moon-image[data-weather='clear-night'] ha-icon {
@@ -169,6 +198,7 @@ export class LunarMoonImage extends LitElement {
       .moon-image[data-weather='windy-variant'] ha-icon {
         color: #ffffff;
         filter: drop-shadow(0 7px 16px rgba(50, 82, 112, 0.3)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.72));
+        animation: solar-weather-drift 5.8s ease-in-out infinite;
       }
 
       .moon-image[data-weather='cloudy']::before,
@@ -184,6 +214,7 @@ export class LunarMoonImage extends LitElement {
       .moon-image[data-weather='snowy-rainy'] ha-icon {
         color: #f4fbff;
         filter: drop-shadow(0 7px 16px rgba(29, 59, 88, 0.38)) drop-shadow(0 0 10px rgba(211, 236, 255, 0.75));
+        animation: solar-weather-rain 1.7s ease-in-out infinite;
       }
 
       .moon-image[data-weather='rainy']::before,
@@ -196,12 +227,14 @@ export class LunarMoonImage extends LitElement {
       .moon-image[data-weather='lightning-rainy'] ha-icon {
         color: #ffe66d;
         filter: drop-shadow(0 7px 16px rgba(30, 31, 70, 0.45)) drop-shadow(0 0 16px rgba(255, 232, 106, 0.78));
+        animation: solar-weather-flash 2.3s steps(2, end) infinite;
       }
 
       .moon-image[data-weather='snowy'] ha-icon,
       .moon-image[data-weather='hail'] ha-icon {
         color: #ffffff;
         filter: drop-shadow(0 7px 16px rgba(70, 103, 133, 0.3)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.82));
+        animation: solar-weather-snow 3.8s ease-in-out infinite;
       }
       .moon-image.hovered img {
         filter: saturate(1.25) brightness(1.15) drop-shadow(0 0 22px rgba(255, 190, 61, 0.75));
@@ -226,6 +259,81 @@ export class LunarMoonImage extends LitElement {
         border-radius: 50%;
         border: 1px solid rgba(255, 255, 255, 0.1);
         transition: background 0.3s;
+      }
+
+      @keyframes solar-weather-float {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-4px) scale(1.035);
+        }
+      }
+
+      @keyframes solar-weather-pulse {
+        0%,
+        100% {
+          transform: scale(0.94);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.08);
+          opacity: 1;
+        }
+      }
+
+      @keyframes solar-weather-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes solar-weather-drift {
+        0%,
+        100% {
+          transform: translateX(-3px);
+        }
+        50% {
+          transform: translateX(5px);
+        }
+      }
+
+      @keyframes solar-weather-rain {
+        0%,
+        100% {
+          transform: translateY(-2px);
+        }
+        50% {
+          transform: translateY(5px);
+        }
+      }
+
+      @keyframes solar-weather-flash {
+        0%,
+        65%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        70% {
+          opacity: 0.35;
+          transform: scale(1.08);
+        }
+        76% {
+          opacity: 1;
+          transform: scale(1.02);
+        }
+      }
+
+      @keyframes solar-weather-snow {
+        0%,
+        100% {
+          transform: translateY(-3px) rotate(-2deg);
+        }
+        50% {
+          transform: translateY(4px) rotate(2deg);
+        }
       }
     `;
   }

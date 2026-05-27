@@ -3,8 +3,8 @@ import { AppearanceLayoutConfig, COMPACT_MODE, MOON_POSITION } from '../../../ty
 import { computeBooleanItem, computeSelectorSchema } from './helper';
 import { HaFormBaseSchemaExtended } from './types';
 
-const SECTIONS = ['base', 'calendar', 'full_calendar', 'horizon'] as const;
-const booleanProperties = ['calendar_modal', 'hide_buttons', 'compact_menu_button', 'compact_view'] as const;
+const SECTIONS = ['base', 'horizon'] as const;
+const booleanProperties = ['hide_buttons', 'compact_menu_button', 'compact_view'] as const;
 
 const DropdownProperty = ['default_section', 'compact_mode', 'moon_position'] as const;
 type DropdownProperty = (typeof DropdownProperty)[number];

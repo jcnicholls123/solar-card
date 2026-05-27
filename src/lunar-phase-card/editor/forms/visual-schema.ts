@@ -1,4 +1,3 @@
-import { EDITOR_CUSTOM_BG } from '../../../const';
 import { LocalizeFunc } from '../../../ha';
 import { langKeys } from '../../../localize/languageImports';
 import { THEME_MODE, VisualBackgroundConfig } from '../../../types/config/lunar-phase-card-config';
@@ -6,12 +5,6 @@ import { computeBooleanItem, computeSelectorSchema } from './helper';
 import { HaFormBaseSchemaExtended } from './types';
 
 const backgroundBooleans = ['hide_background', 'hide_starfield'] as const;
-
-const CUSTOM_BG_OPTIONS = Array.from(EDITOR_CUSTOM_BG).map((bg, index) => ({
-  value: bg,
-  label: `BG #${index + 1}`,
-  image: { src: bg },
-}));
 
 const DropdownProperty = ['theme_mode'] as const;
 type DropdownProperty = (typeof DropdownProperty)[number];
@@ -53,21 +46,12 @@ const computeBgOption = (isBackgroundHidden: boolean, helper: boolean = false) =
   return [
     {
       name: 'custom_background',
-      helper: helper ? 'You can choose a custom background from the options or enter a custom URL.' : undefined,
-      label: helper ? 'Custom Background (Options or URL)' : 'Preset Backgrounds',
+      helper: helper ? 'Optional image URL. Leave empty to use the weather sky.' : undefined,
+      label: 'Custom Background URL',
       disabled: isBackgroundHidden,
       required: false,
       selector: {
-        select: {
-          mode: 'box',
-          multiple: false,
-          custom_value: helper,
-          box_max_columns: 4,
-          options: CUSTOM_BG_OPTIONS.map((option) => ({
-            ...option,
-            disabled: isBackgroundHidden,
-          })),
-        },
+        text: {},
       },
     },
   ];
@@ -86,7 +70,6 @@ const BACKGROUND_CONFIG_SCHEMA = (isBackgroundHidden = false, title: string) =>
           flatten: true,
           schema: backgroundBooleans.map((prop) => computeBooleanItem(prop)),
         },
-        ...computeBgOption(isBackgroundHidden),
         ...computeBgOption(isBackgroundHidden, true),
       ],
     },

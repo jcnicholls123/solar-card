@@ -3,7 +3,7 @@ import { LovelaceCardConfig } from '../../ha';
 import { FontCustomStyles } from './font-config';
 import { GraphConfig } from './graph-config';
 
-export type Section = SECTION.BASE | SECTION.CALENDAR | SECTION.HORIZON | SECTION.FULL_CALENDAR;
+export type Section = SECTION.BASE | SECTION.HORIZON;
 
 export const LOC_SOURCE = ['default', 'entity', 'custom'] as const;
 
@@ -112,10 +112,6 @@ export interface LunarPhaseCardConfig extends LovelaceCardConfig {
    * Hide label in compact view
    */
   hide_compact_label?: boolean;
-  /**
-   * Use a modal popup for calendar section
-   */
-  calendar_modal?: boolean;
   /**
    * Custom theme name for the card
    */
@@ -237,7 +233,6 @@ export const AppearanceLayoutKeys = [
   'hide_buttons',
   'compact_menu_button',
   'hide_compact_label',
-  'calendar_modal',
 ] as const;
 
 export type AppearanceLayoutConfig = Pick<LunarPhaseCardConfig, (typeof AppearanceLayoutKeys)[number]>;
