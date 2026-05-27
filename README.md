@@ -4,6 +4,8 @@ A Home Assistant Lovelace custom card for solar position data.
 
 Solar Card shows the current sun position, sunrise, sunset, solar noon, daylight length, golden hour times, altitude, azimuth, and horizon charts using the location configured in Home Assistant or a custom latitude/longitude.
 
+The package includes a dedicated `icon.svg` and animated weather artwork for sunny, cloudy, rainy, stormy, snowy, foggy, windy, and night conditions.
+
 ## Installation
 
 ### HACS

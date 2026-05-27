@@ -1,76 +1,17 @@
 import { html, css, TemplateResult, LitElement } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { MoonImage } from '../../types/config/chart-config';
-// import { LunarBaseElement } from '../base-element';
 
 @customElement('solar-weather-image')
-export class LunarMoonImage extends LitElement {
+export class SolarWeatherImage extends LitElement {
   @property({ attribute: false }) public imageData!: MoonImage;
   @property({ type: String }) public weatherState = 'sunny';
-
-  @query('.moon-image img') private _imgElement!: HTMLImageElement;
-
-  @state() public _hover = false;
-  @state() public _focused = false;
-
-  private _touchStarted = false;
 
   public connectedCallback(): void {
     super.connectedCallback();
     window.SolarWeatherPic = this;
-  }
-
-  protected firstUpdated(): void {
-    if (this._imgElement) {
-      this._imgElement.addEventListener('dragstart', (e) => e.preventDefault());
-      this._imgElement.addEventListener('contextmenu', (e) => e.preventDefault());
-      this._imgElement.draggable = false;
-
-      this._imgElement.addEventListener('focus', () => {
-        this._focused = true;
-      });
-      this._imgElement.addEventListener('blur', () => {
-        this._focused = false;
-      });
-
-      this._imgElement.addEventListener(
-        'touchstart',
-        () => {
-          this._touchStarted = true;
-        },
-        { passive: true }
-      );
-
-      this._imgElement.addEventListener('touchend', () => {
-        setTimeout(() => {
-          this._touchStarted = false;
-        }, 100);
-      });
-
-      this._imgElement.addEventListener('mouseenter', () => {
-        if (this._touchStarted) return;
-        this._hover = true;
-      });
-      this._imgElement.addEventListener('mouseleave', () => {
-        this._hover = false;
-        this.style.removeProperty('--pointer-x');
-        this.style.removeProperty('--pointer-y');
-      });
-      this._imgElement.addEventListener('mousemove', this._handlePointerMove.bind(this));
-    }
-  }
-
-  private _handlePointerMove(event: MouseEvent) {
-    if (!this._hover) return;
-    const rect = this._imgElement.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const xPercent = (x / rect.width) * 100;
-    const yPercent = (y / rect.height) * 100;
-    this.style.setProperty('--pointer-x', `${xPercent}%`);
-    this.style.setProperty('--pointer-y', `${yPercent}%`);
   }
 
   protected render(): TemplateResult {
@@ -78,42 +19,71 @@ export class LunarMoonImage extends LitElement {
       return html``;
     }
 
-    const showOverlay = this._hover || this._focused;
-    const lightFraction = this.imageData.fraction && this.imageData.fraction >= 60 ? true : false;
+    const weatherClass = this._weatherClass(this.weatherState);
+
     return html`
       <div
         class=${classMap({
-          'moon-image': true,
-          hovered: showOverlay,
-          'light-fraction': lightFraction,
+          'weather-scene': true,
+          [weatherClass]: true,
         })}
-        data-weather=${this.weatherState || 'sunny'}
+        aria-label=${this._weatherLabel(this.weatherState)}
       >
-        <ha-icon .icon=${this._weatherIcon(this.weatherState)}></ha-icon>
+        <div class="scene-glow"></div>
+        <div class="sun-rays"></div>
+        <div class="sun-core"><span></span></div>
+        <div class="night-disc"></div>
+        <div class="cloud cloud-main"></div>
+        <div class="cloud cloud-soft"></div>
+        <div class="mist mist-one"></div>
+        <div class="mist mist-two"></div>
+        <div class="rain rain-one"></div>
+        <div class="rain rain-two"></div>
+        <div class="rain rain-three"></div>
+        <div class="bolt"></div>
+        <div class="flake flake-one"></div>
+        <div class="flake flake-two"></div>
+        <div class="flake flake-three"></div>
       </div>
     `;
   }
 
-  private _weatherIcon(state: string): string {
-    const iconMap: Record<string, string> = {
-      clear: 'mdi:weather-sunny',
-      'clear-night': 'mdi:weather-night',
-      cloudy: 'mdi:weather-cloudy',
-      exceptional: 'mdi:weather-sunny-alert',
-      fog: 'mdi:weather-fog',
-      hail: 'mdi:weather-hail',
-      lightning: 'mdi:weather-lightning',
-      'lightning-rainy': 'mdi:weather-lightning-rainy',
-      partlycloudy: 'mdi:weather-partly-cloudy',
-      pouring: 'mdi:weather-pouring',
-      rainy: 'mdi:weather-rainy',
-      snowy: 'mdi:weather-snowy',
-      'snowy-rainy': 'mdi:weather-snowy-rainy',
-      sunny: 'mdi:weather-sunny',
-      windy: 'mdi:weather-windy',
-      'windy-variant': 'mdi:weather-windy-variant',
+  private _weatherClass(state: string): string {
+    const normalised = (state || 'sunny').toLowerCase();
+
+    if (normalised === 'clear-night') return 'is-night';
+    if (normalised.includes('lightning')) return 'is-storm';
+    if (normalised.includes('snow') || normalised === 'hail') return 'is-snow';
+    if (normalised === 'rainy' || normalised === 'pouring') return 'is-rain';
+    if (normalised === 'fog') return 'is-fog';
+    if (normalised.includes('windy')) return 'is-wind';
+    if (normalised === 'cloudy') return 'is-cloudy';
+    if (normalised === 'partlycloudy') return 'is-partly-cloudy';
+
+    return 'is-sunny';
+  }
+
+  private _weatherLabel(state: string): string {
+    const labels: Record<string, string> = {
+      clear: 'Sunny weather',
+      'clear-night': 'Clear night weather',
+      cloudy: 'Cloudy weather',
+      exceptional: 'Exceptional sunny weather',
+      fog: 'Foggy weather',
+      hail: 'Hail weather',
+      lightning: 'Thunder weather',
+      'lightning-rainy': 'Thunder and rain weather',
+      partlycloudy: 'Partly cloudy weather',
+      pouring: 'Heavy rain weather',
+      rainy: 'Rainy weather',
+      snowy: 'Snowy weather',
+      'snowy-rainy': 'Sleet weather',
+      sunny: 'Sunny weather',
+      windy: 'Windy weather',
+      'windy-variant': 'Windy weather',
     };
-    return iconMap[state] || iconMap.sunny;
+
+    return labels[(state || 'sunny').toLowerCase()] || labels.sunny;
   }
 
   static get styles() {
@@ -121,218 +91,421 @@ export class LunarMoonImage extends LitElement {
       :host {
         display: block;
         width: 100%;
-        max-width: 220px;
+        max-width: 230px;
       }
-      .moon-image {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+      .weather-scene {
+        --sun-x: 50%;
+        --sun-y: 46%;
+        --sun-size: 61%;
+        --cloud-x: 50%;
+        --cloud-y: 62%;
+        --cloud-scale: 1;
+        position: relative;
         width: 100%;
-        min-width: 132px;
-        min-height: 132px;
-        transition: transform 0.5s;
+        min-width: 150px;
+        min-height: 150px;
+        aspect-ratio: 1;
+        overflow: visible;
+        isolation: isolate;
+        filter: drop-shadow(0 14px 18px rgba(42, 83, 116, 0.2));
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        aspect-ratio: 1;
-        flex-shrink: 0;
-        position: relative;
       }
 
-      .moon-image::before {
-        content: '';
+      .scene-glow {
         position: absolute;
-        width: 82%;
-        height: 82%;
+        inset: 7%;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 245, 174, 0.5) 0%, rgba(255, 206, 73, 0.16) 48%, transparent 72%);
+        background:
+          radial-gradient(circle at 48% 43%, rgba(255, 255, 214, 0.94) 0 16%, rgba(255, 216, 82, 0.34) 34%, transparent 66%),
+          radial-gradient(circle, rgba(83, 197, 255, 0.18), transparent 64%);
+        animation: solar-scene-breathe 4.2s ease-in-out infinite;
+        z-index: 0;
       }
 
-      .moon-image::after {
-        content: '';
+      .sun-rays {
         position: absolute;
-        inset: 16%;
+        left: var(--sun-x);
+        top: var(--sun-y);
+        width: calc(var(--sun-size) * 1.26);
+        height: calc(var(--sun-size) * 1.26);
         border-radius: 50%;
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .moon-image ha-icon {
-        position: relative;
+        background: repeating-conic-gradient(
+          from 4deg,
+          rgba(255, 231, 106, 0.8) 0deg 8deg,
+          transparent 8deg 22deg
+        );
+        opacity: 0.72;
+        transform: translate(-50%, -50%);
+        animation: solar-ray-turn 22s linear infinite;
+        filter: blur(0.2px);
         z-index: 1;
-        width: 92%;
-        height: 92%;
-        color: #f7b731;
-        filter: drop-shadow(0 6px 16px rgba(118, 85, 21, 0.25)) drop-shadow(0 0 18px rgba(255, 215, 87, 0.65));
-        animation: solar-weather-float 4.8s ease-in-out infinite;
       }
 
-      .moon-image[data-weather='sunny']::before,
-      .moon-image[data-weather='clear']::before,
-      .moon-image[data-weather='exceptional']::before {
-        animation: solar-weather-pulse 3.4s ease-in-out infinite;
+      .sun-core {
+        position: absolute;
+        left: var(--sun-x);
+        top: var(--sun-y);
+        width: var(--sun-size);
+        height: var(--sun-size);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background:
+          radial-gradient(circle at 33% 29%, #fff8bb 0 18%, #ffe86f 34%, #ffb72b 69%, #fb8f16 100%);
+        box-shadow:
+          inset -12px -18px 22px rgba(208, 91, 19, 0.28),
+          inset 9px 10px 18px rgba(255, 255, 255, 0.38),
+          0 0 22px rgba(255, 224, 96, 0.8),
+          0 0 48px rgba(255, 174, 45, 0.46);
+        animation: solar-sun-float 5s ease-in-out infinite;
+        z-index: 2;
       }
 
-      .moon-image[data-weather='sunny']::after,
-      .moon-image[data-weather='clear']::after,
-      .moon-image[data-weather='exceptional']::after {
-        opacity: 0.7;
-        background: conic-gradient(
-          from 0deg,
-          transparent 0deg 16deg,
-          rgba(255, 220, 84, 0.55) 16deg 24deg,
-          transparent 24deg 45deg
-        );
-        animation: solar-weather-spin 18s linear infinite;
+      .sun-core span {
+        position: absolute;
+        inset: 19%;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.08) 48%, transparent 70%);
       }
 
-      .moon-image[data-weather='clear-night'] ha-icon {
-        color: #f5f0c8;
-        filter: drop-shadow(0 6px 16px rgba(8, 22, 48, 0.45)) drop-shadow(0 0 18px rgba(205, 224, 255, 0.65));
+      .night-disc,
+      .cloud,
+      .mist,
+      .rain,
+      .bolt,
+      .flake {
+        position: absolute;
       }
 
-      .moon-image[data-weather='cloudy'] ha-icon,
-      .moon-image[data-weather='fog'] ha-icon,
-      .moon-image[data-weather='partlycloudy'] ha-icon,
-      .moon-image[data-weather='windy'] ha-icon,
-      .moon-image[data-weather='windy-variant'] ha-icon {
-        color: #ffffff;
-        filter: drop-shadow(0 7px 16px rgba(50, 82, 112, 0.3)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.72));
-        animation: solar-weather-drift 5.8s ease-in-out infinite;
+      .night-disc {
+        left: 46%;
+        top: 46%;
+        width: 55%;
+        height: 55%;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background:
+          radial-gradient(circle at 33% 28%, rgba(255, 255, 255, 0.9) 0 9%, transparent 10%),
+          radial-gradient(circle at 61% 55%, rgba(255, 255, 255, 0.5) 0 5%, transparent 6%),
+          radial-gradient(circle at 49% 45%, #fff8ce 0 48%, #d8e5ff 70%, #9fb5d8 100%);
+        box-shadow: 0 0 26px rgba(206, 224, 255, 0.65);
+        opacity: 0;
+        z-index: 3;
       }
 
-      .moon-image[data-weather='cloudy']::before,
-      .moon-image[data-weather='fog']::before,
-      .moon-image[data-weather='partlycloudy']::before,
-      .moon-image[data-weather='windy']::before,
-      .moon-image[data-weather='windy-variant']::before {
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.58) 0%, rgba(199, 225, 238, 0.24) 54%, transparent 76%);
+      .cloud {
+        left: var(--cloud-x);
+        top: var(--cloud-y);
+        width: 58%;
+        height: 27%;
+        border-radius: 999px;
+        transform: translate(-50%, -50%) scale(var(--cloud-scale));
+        background: linear-gradient(180deg, #ffffff 0%, #e8f6ff 58%, #c5d9e4 100%);
+        box-shadow:
+          inset 9px 10px 15px rgba(255, 255, 255, 0.72),
+          inset -9px -8px 14px rgba(123, 155, 174, 0.22),
+          0 11px 16px rgba(67, 104, 124, 0.18);
+        opacity: 0;
+        z-index: 5;
       }
 
-      .moon-image[data-weather='rainy'] ha-icon,
-      .moon-image[data-weather='pouring'] ha-icon,
-      .moon-image[data-weather='snowy-rainy'] ha-icon {
-        color: #f4fbff;
-        filter: drop-shadow(0 7px 16px rgba(29, 59, 88, 0.38)) drop-shadow(0 0 10px rgba(211, 236, 255, 0.75));
-        animation: solar-weather-rain 1.7s ease-in-out infinite;
-      }
-
-      .moon-image[data-weather='rainy']::before,
-      .moon-image[data-weather='pouring']::before,
-      .moon-image[data-weather='snowy-rainy']::before {
-        background: radial-gradient(circle, rgba(217, 239, 255, 0.52) 0%, rgba(104, 154, 190, 0.22) 55%, transparent 76%);
-      }
-
-      .moon-image[data-weather='lightning'] ha-icon,
-      .moon-image[data-weather='lightning-rainy'] ha-icon {
-        color: #ffe66d;
-        filter: drop-shadow(0 7px 16px rgba(30, 31, 70, 0.45)) drop-shadow(0 0 16px rgba(255, 232, 106, 0.78));
-        animation: solar-weather-flash 2.3s steps(2, end) infinite;
-      }
-
-      .moon-image[data-weather='snowy'] ha-icon,
-      .moon-image[data-weather='hail'] ha-icon {
-        color: #ffffff;
-        filter: drop-shadow(0 7px 16px rgba(70, 103, 133, 0.3)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.82));
-        animation: solar-weather-snow 3.8s ease-in-out infinite;
-      }
-      .moon-image.hovered img {
-        filter: saturate(1.25) brightness(1.15) drop-shadow(0 0 22px rgba(255, 190, 61, 0.75));
-        cursor: zoom-in;
-      }
-      .moon-image.hovered.light-fraction img {
-        filter: saturate(1.15) brightness(1.05) drop-shadow(0 0 18px rgba(255, 190, 61, 0.7));
-      }
-      .moon-image.hovered::after {
+      .cloud::before,
+      .cloud::after {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(
-          circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-          rgba(255, 217, 116, 0.3),
-          rgba(246, 134, 31, 0.18) 60%
-        );
-        pointer-events: none;
+        bottom: 32%;
         border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: background 0.3s;
+        background: inherit;
       }
 
-      @keyframes solar-weather-float {
-        0%,
-        100% {
-          transform: translateY(0) scale(1);
-        }
-        50% {
-          transform: translateY(-4px) scale(1.035);
-        }
+      .cloud::before {
+        left: 12%;
+        width: 38%;
+        height: 92%;
       }
 
-      @keyframes solar-weather-pulse {
+      .cloud::after {
+        right: 15%;
+        width: 45%;
+        height: 122%;
+      }
+
+      .cloud-soft {
+        --cloud-x: 64%;
+        --cloud-y: 52%;
+        --cloud-scale: 0.66;
+        opacity: 0;
+        z-index: 4;
+        filter: blur(0.2px);
+      }
+
+      .mist {
+        left: 24%;
+        width: 58%;
+        height: 7%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.78), transparent);
+        opacity: 0;
+        z-index: 7;
+      }
+
+      .mist-one {
+        top: 61%;
+        animation: solar-mist-slide 4s ease-in-out infinite;
+      }
+
+      .mist-two {
+        top: 72%;
+        width: 48%;
+        animation: solar-mist-slide 4.7s ease-in-out infinite reverse;
+      }
+
+      .rain {
+        top: 72%;
+        width: 4%;
+        height: 25%;
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(60, 167, 237, 0.82));
+        opacity: 0;
+        transform: rotate(13deg);
+        z-index: 4;
+      }
+
+      .rain-one {
+        left: 36%;
+        animation: solar-rain-drop 0.92s linear infinite;
+      }
+
+      .rain-two {
+        left: 51%;
+        animation: solar-rain-drop 0.92s linear 0.18s infinite;
+      }
+
+      .rain-three {
+        left: 66%;
+        animation: solar-rain-drop 0.92s linear 0.36s infinite;
+      }
+
+      .bolt {
+        left: 50%;
+        top: 64%;
+        width: 23%;
+        height: 35%;
+        background: linear-gradient(180deg, #fff487 0%, #ffd43b 56%, #ff9500 100%);
+        clip-path: polygon(43% 0, 84% 0, 59% 39%, 88% 39%, 28% 100%, 43% 54%, 16% 54%);
+        filter: drop-shadow(0 0 10px rgba(255, 225, 83, 0.9));
+        opacity: 0;
+        transform: translate(-50%, -12%) rotate(4deg);
+        z-index: 7;
+      }
+
+      .flake {
+        width: 9%;
+        height: 9%;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffffff 0 36%, rgba(192, 233, 255, 0.85) 58%, transparent 62%);
+        opacity: 0;
+        z-index: 4;
+      }
+
+      .flake-one {
+        left: 34%;
+        top: 69%;
+        animation: solar-snow-fall 2.5s ease-in-out infinite;
+      }
+
+      .flake-two {
+        left: 52%;
+        top: 75%;
+        width: 7%;
+        height: 7%;
+        animation: solar-snow-fall 2.8s ease-in-out 0.35s infinite;
+      }
+
+      .flake-three {
+        left: 68%;
+        top: 68%;
+        width: 8%;
+        height: 8%;
+        animation: solar-snow-fall 2.65s ease-in-out 0.7s infinite;
+      }
+
+      .is-cloudy,
+      .is-rain,
+      .is-storm,
+      .is-snow,
+      .is-fog,
+      .is-wind {
+        --sun-x: 38%;
+        --sun-y: 39%;
+        --sun-size: 48%;
+        --cloud-y: 59%;
+      }
+
+      .is-partly-cloudy {
+        --sun-x: 38%;
+        --sun-y: 38%;
+        --sun-size: 54%;
+        --cloud-x: 58%;
+        --cloud-y: 61%;
+      }
+
+      .is-cloudy .sun-core,
+      .is-cloudy .sun-rays,
+      .is-rain .sun-core,
+      .is-rain .sun-rays,
+      .is-storm .sun-core,
+      .is-storm .sun-rays,
+      .is-snow .sun-core,
+      .is-snow .sun-rays,
+      .is-fog .sun-core,
+      .is-fog .sun-rays,
+      .is-wind .sun-core,
+      .is-wind .sun-rays {
+        opacity: 0.28;
+      }
+
+      .is-cloudy .cloud-main,
+      .is-cloudy .cloud-soft,
+      .is-partly-cloudy .cloud-main,
+      .is-rain .cloud-main,
+      .is-storm .cloud-main,
+      .is-snow .cloud-main,
+      .is-fog .cloud-main,
+      .is-wind .cloud-main {
+        opacity: 1;
+        animation: solar-cloud-drift 5.8s ease-in-out infinite;
+      }
+
+      .is-cloudy .cloud-soft,
+      .is-fog .cloud-soft,
+      .is-wind .cloud-soft {
+        opacity: 0.78;
+        animation-delay: -1.8s;
+      }
+
+      .is-rain .rain,
+      .is-storm .rain,
+      .is-snow .flake {
+        opacity: 1;
+      }
+
+      .is-storm .bolt {
+        animation: solar-bolt-flash 2.2s steps(2, end) infinite;
+      }
+
+      .is-fog .mist,
+      .is-wind .mist {
+        opacity: 1;
+      }
+
+      .is-night .scene-glow {
+        background:
+          radial-gradient(circle at 47% 43%, rgba(215, 230, 255, 0.54), transparent 48%),
+          radial-gradient(circle, rgba(10, 30, 72, 0.3), transparent 70%);
+      }
+
+      .is-night .sun-core,
+      .is-night .sun-rays {
+        opacity: 0;
+      }
+
+      .is-night .night-disc {
+        opacity: 1;
+        animation: solar-sun-float 5.4s ease-in-out infinite;
+      }
+
+      @keyframes solar-scene-breathe {
         0%,
         100% {
-          transform: scale(0.94);
-          opacity: 0.8;
+          transform: scale(0.96);
+          opacity: 0.84;
         }
         50% {
-          transform: scale(1.08);
+          transform: scale(1.04);
           opacity: 1;
         }
       }
 
-      @keyframes solar-weather-spin {
+      @keyframes solar-ray-turn {
         to {
-          transform: rotate(360deg);
+          transform: translate(-50%, -50%) rotate(360deg);
         }
       }
 
-      @keyframes solar-weather-drift {
+      @keyframes solar-sun-float {
         0%,
         100% {
-          transform: translateX(-3px);
+          transform: translate(-50%, -50%) translateY(0) scale(1);
         }
         50% {
-          transform: translateX(5px);
+          transform: translate(-50%, -50%) translateY(-4px) scale(1.025);
         }
       }
 
-      @keyframes solar-weather-rain {
+      @keyframes solar-cloud-drift {
         0%,
         100% {
-          transform: translateY(-2px);
+          transform: translate(-52%, -50%) scale(var(--cloud-scale));
         }
         50% {
-          transform: translateY(5px);
+          transform: translate(-46%, -51%) scale(var(--cloud-scale));
         }
       }
 
-      @keyframes solar-weather-flash {
-        0%,
-        65%,
-        100% {
+      @keyframes solar-rain-drop {
+        0% {
+          opacity: 0;
+          transform: translateY(-15%) rotate(13deg);
+        }
+        28% {
           opacity: 1;
-          transform: scale(1);
         }
-        70% {
-          opacity: 0.35;
-          transform: scale(1.08);
-        }
-        76% {
-          opacity: 1;
-          transform: scale(1.02);
+        100% {
+          opacity: 0;
+          transform: translateY(62%) rotate(13deg);
         }
       }
 
-      @keyframes solar-weather-snow {
+      @keyframes solar-bolt-flash {
+        0%,
+        62%,
+        100% {
+          opacity: 0;
+        }
+        66%,
+        72% {
+          opacity: 1;
+        }
+        69% {
+          opacity: 0.36;
+        }
+      }
+
+      @keyframes solar-snow-fall {
         0%,
         100% {
-          transform: translateY(-3px) rotate(-2deg);
+          opacity: 0.2;
+          transform: translateY(-6%) translateX(-2px);
+        }
+        42% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 0.8;
+          transform: translateY(58%) translateX(4px);
+        }
+      }
+
+      @keyframes solar-mist-slide {
+        0%,
+        100% {
+          transform: translateX(-8%);
         }
         50% {
-          transform: translateY(4px) rotate(2deg);
+          transform: translateX(10%);
         }
       }
     `;
@@ -341,6 +514,6 @@ export class LunarMoonImage extends LitElement {
 
 declare global {
   interface Window {
-    SolarWeatherPic: LunarMoonImage;
+    SolarWeatherPic: SolarWeatherImage;
   }
 }

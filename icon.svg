@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Solar Card icon</title>
+  <desc id="desc">A bright sun over a blue sky for the Solar Card Home Assistant package.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#35b7ff"/>
+      <stop offset="0.62" stop-color="#8bdfff"/>
+      <stop offset="1" stop-color="#ffe49c"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="34%" cy="30%" r="67%">
+      <stop offset="0" stop-color="#fff9bc"/>
+      <stop offset="0.34" stop-color="#ffe766"/>
+      <stop offset="0.72" stop-color="#ffb331"/>
+      <stop offset="1" stop-color="#f4821f"/>
+    </radialGradient>
+    <filter id="soft-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#306f96" flood-opacity="0.26"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#sky)"/>
+  <g opacity="0.54" transform="translate(256 248)">
+    <path fill="#ffef85" d="M0-198 23-112l74-50-50 74 86 23-86 23 50 74-74-50L0 68l-23-86-74 50 50-74-86-23 86-23-50-74 74 50z"/>
+  </g>
+  <circle cx="256" cy="248" r="112" fill="url(#sun)" filter="url(#soft-shadow)"/>
+  <circle cx="224" cy="206" r="34" fill="#fffbd0" opacity="0.62"/>
+  <path fill="#ffffff" opacity="0.92" d="M154 330c-35 0-64-25-64-57 0-29 23-53 53-56 14-31 48-52 87-52 51 0 93 35 97 80 30 7 52 31 52 60 0 35-32 63-72 63H154z"/>
+  <path fill="#d9f2ff" opacity="0.86" d="M154 368h153c40 0 72-28 72-63 0-7-1-13-3-19-29 28-74 43-134 43H90c12 23 37 39 64 39z"/>
+  <path fill="#ffffff" opacity="0.42" d="M111 96c32-20 76-28 132-26-42 9-77 24-105 45-12 9-29-10-27-19z"/>
+</svg>
