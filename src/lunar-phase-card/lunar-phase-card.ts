@@ -103,13 +103,6 @@ export class LunarPhaseCard extends LunarBaseCard {
 
   protected updated(_changedProperties: PropertyValues): void {
     super.updated(_changedProperties);
-    if (_changedProperties.has('_activePage')) {
-      const oldPage = _changedProperties.get('_activePage') as SECTION;
-      if (oldPage && oldPage !== this._activePage && this._selectedDate) {
-        console.debug('Reset selected date on page change');
-        this._selectedDate = undefined;
-      }
-    }
   }
 
   get _date(): Date {
@@ -262,6 +255,7 @@ export class LunarPhaseCard extends LunarBaseCard {
     } else if (action === 'date-select' && ev.detail.date) {
       this._selectedDate = ev.detail.date;
       this._calendarPopup = false;
+      this._activePage = SECTION.CALENDAR;
     }
   }
 

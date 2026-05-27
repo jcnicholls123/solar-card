@@ -120,11 +120,16 @@ export class LunarMoonImage extends LitElement {
     return css`
       :host {
         display: block;
+        width: 100%;
+        max-width: 190px;
       }
       .moon-image {
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 100%;
+        min-width: 96px;
+        min-height: 96px;
         transition: transform 0.5s;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -134,9 +139,20 @@ export class LunarMoonImage extends LitElement {
         position: relative;
       }
 
+      .moon-image::before {
+        content: '';
+        position: absolute;
+        width: 82%;
+        height: 82%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 245, 174, 0.5) 0%, rgba(255, 206, 73, 0.16) 48%, transparent 72%);
+      }
+
       .moon-image ha-icon {
-        width: 86%;
-        height: 86%;
+        position: relative;
+        z-index: 1;
+        width: 92%;
+        height: 92%;
         color: #f7b731;
         filter: drop-shadow(0 6px 16px rgba(118, 85, 21, 0.25)) drop-shadow(0 0 18px rgba(255, 215, 87, 0.65));
       }
@@ -155,11 +171,25 @@ export class LunarMoonImage extends LitElement {
         filter: drop-shadow(0 7px 16px rgba(50, 82, 112, 0.3)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.72));
       }
 
+      .moon-image[data-weather='cloudy']::before,
+      .moon-image[data-weather='fog']::before,
+      .moon-image[data-weather='partlycloudy']::before,
+      .moon-image[data-weather='windy']::before,
+      .moon-image[data-weather='windy-variant']::before {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.58) 0%, rgba(199, 225, 238, 0.24) 54%, transparent 76%);
+      }
+
       .moon-image[data-weather='rainy'] ha-icon,
       .moon-image[data-weather='pouring'] ha-icon,
       .moon-image[data-weather='snowy-rainy'] ha-icon {
         color: #f4fbff;
         filter: drop-shadow(0 7px 16px rgba(29, 59, 88, 0.38)) drop-shadow(0 0 10px rgba(211, 236, 255, 0.75));
+      }
+
+      .moon-image[data-weather='rainy']::before,
+      .moon-image[data-weather='pouring']::before,
+      .moon-image[data-weather='snowy-rainy']::before {
+        background: radial-gradient(circle, rgba(217, 239, 255, 0.52) 0%, rgba(104, 154, 190, 0.22) 55%, transparent 76%);
       }
 
       .moon-image[data-weather='lightning'] ha-icon,

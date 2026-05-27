@@ -97,19 +97,17 @@ export class LunarMoonCalendarPopup extends LunarBaseCard {
       const dateObj = date.toJSDate();
       const isToday = Boolean(date.toISODate() === DateTime.local().toISODate());
 
-      const { emoji, phaseName, isNewMoonOrFullMoon, phaseId } = this.moon._getDataByDate(dateObj);
-      const emojiReplace = phaseId === 'fullMoon' ? '🌕' : phaseId === 'newMoon' ? '🌑' : emoji;
+      const { phaseName } = this.moon._getDataByDate(dateObj);
       return html`
         <div
           id="calendar-day-${day}"
           class="calendar-day"
           .jsdate=${dateObj}
           ?today=${isToday}
-          ?new-full-moon=${isNewMoonOrFullMoon}
           @click=${this._handleDayClick}
         >
           <span>${date.day}</span>
-          <span class="day-symbol">${emojiReplace}</span>
+          <span class="day-symbol"><ha-icon icon="mdi:weather-sunny"></ha-icon></span>
         </div>
         <ha-tooltip .for=${`calendar-day-${day}`}>${phaseName}</ha-tooltip>
       `;
@@ -267,7 +265,7 @@ export class LunarMoonCalendarPopup extends LunarBaseCard {
           display: flex;
           border-radius: 0.25em;
           border: 1px solid transparent;
-          background-color: rgba(0, 0, 0, 0.14);
+          background: linear-gradient(180deg, rgba(77, 184, 255, 0.18), rgba(255, 229, 142, 0.18));
           transition:
             background-color 0.3s,
             border 0.3s ease-in-out;
@@ -299,8 +297,8 @@ export class LunarMoonCalendarPopup extends LunarBaseCard {
           line-height: 1;
           max-width: 100%;
           max-height: 100%;
-          width: 36px;
-          min-height: 36px;
+          width: 42px;
+          min-height: 42px;
           place-self: center center;
           aspect-ratio: 1;
           display: flex;
@@ -309,8 +307,11 @@ export class LunarMoonCalendarPopup extends LunarBaseCard {
           margin: auto;
           padding: 0;
         }
-        :host([south]) .calendar-day:not([new-full-moon]) span.day-symbol {
-          transform: rotate(180deg);
+        .calendar-day span.day-symbol ha-icon {
+          width: 100%;
+          height: 100%;
+          color: #f7b731;
+          filter: drop-shadow(0 4px 10px rgba(118, 85, 21, 0.24)) drop-shadow(0 0 10px rgba(255, 215, 87, 0.68));
         }
 
         .calendar-day[selected]::before {
@@ -328,7 +329,7 @@ export class LunarMoonCalendarPopup extends LunarBaseCard {
         }
 
         .calendar-day[selected] .day-symbol {
-          filter: brightness(0.9) contrast(1.2);
+          transform: scale(1.08);
         }
 
         ha-icon-button[disabled] {
@@ -354,8 +355,8 @@ export class LunarMoonCalendarPopup extends LunarBaseCard {
           }
           .calendar-day > .day-symbol {
             font-size: 1rem !important;
-            width: 24px !important;
-            height: 24px !important;
+            width: 30px !important;
+            min-height: 30px !important;
             padding: 0;
           }
         }
