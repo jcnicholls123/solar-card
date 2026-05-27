@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [0.2.1] - 2026-05-27
+
+### Changed
+
+- Updated package metadata and card documentation links for the `jcnicholls123/solar-card` repository name.
+
 ## [0.2.0] - 2026-05-27
 
 ### Changed

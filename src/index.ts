@@ -6,5 +6,5 @@ import './solar-card/solar-card';
   name: 'Solar Card',
   description: 'A card to display solar position, sunrise, sunset, and daylight information.',
   preview: true,
-  documentationURL: 'https://github.com/jcnicholls123/homeass',
+  documentationURL: 'https://github.com/jcnicholls123/solar-card',
 });

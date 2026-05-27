@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
   - name: Questions and support
-    url: https://github.com/jcnicholls123/homeass/issues
+    url: https://github.com/jcnicholls123/solar-card/issues
     about: Ask questions or report Solar Card issues in this repository.
   - name: Documentation
-    url: https://github.com/jcnicholls123/homeass#configuration
+    url: https://github.com/jcnicholls123/solar-card#configuration
     about: Check the README for configuration options and examples.
