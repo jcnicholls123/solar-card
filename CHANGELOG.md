@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.1] - 2026-05-27
+
+### Changed
+
+- Published a stable follow-up release so HACS prefers the normal release line over the earlier beta tag.
+
 ## [1.0.0] - 2026-05-27
 
 ### Changed
