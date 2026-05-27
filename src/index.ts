@@ -6,5 +6,5 @@ import './lunar-phase-card/lunar-phase-card';
   name: 'Solar Card',
   description: 'A card to display solar position, sunrise, sunset, and daylight information.',
   preview: true,
-  documentationURL: 'https://github.com/ngocjohn/solar-card',
+  documentationURL: 'https://github.com/jcnicholls123/homeass',
 });

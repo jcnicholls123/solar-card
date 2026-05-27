@@ -55,7 +55,6 @@ export function logCardInfo(version) {
   const part2Style = `${part2Gradient}${sharedStyle};border-left: none; border-radius: 0 6px 6px 0;`;
 
   const repo = `Github: ${repository.url}`;
-  const sponsor = 'If you like the card, consider supporting the developer: https://github.com/sponsors/ngocjohn';
 
   return `
     console.groupCollapsed(
@@ -65,7 +64,6 @@ export function logCardInfo(version) {
     );
     console.info('${description}');
     console.info('${repo}');
-    console.info('${sponsor}');
     console.groupEnd();
   `;
 }
