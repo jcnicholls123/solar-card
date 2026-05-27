@@ -20,6 +20,9 @@ export class SolarWeatherImage extends LitElement {
     }
 
     const weatherClass = this._weatherClass(this.weatherState);
+    const showRain = weatherClass === 'is-rain' || weatherClass === 'is-storm';
+    const showStorm = weatherClass === 'is-storm';
+    const showSnow = weatherClass === 'is-snow';
 
     return html`
       <div
@@ -37,13 +40,21 @@ export class SolarWeatherImage extends LitElement {
         <div class="cloud cloud-soft"></div>
         <div class="mist mist-one"></div>
         <div class="mist mist-two"></div>
-        <div class="rain rain-one"></div>
-        <div class="rain rain-two"></div>
-        <div class="rain rain-three"></div>
-        <div class="bolt"></div>
-        <div class="flake flake-one"></div>
-        <div class="flake flake-two"></div>
-        <div class="flake flake-three"></div>
+        ${showRain
+          ? html`
+              <div class="rain rain-one"></div>
+              <div class="rain rain-two"></div>
+              <div class="rain rain-three"></div>
+            `
+          : ''}
+        ${showStorm ? html`<div class="bolt"></div>` : ''}
+        ${showSnow
+          ? html`
+              <div class="flake flake-one"></div>
+              <div class="flake flake-two"></div>
+              <div class="flake flake-three"></div>
+            `
+          : ''}
       </div>
     `;
   }

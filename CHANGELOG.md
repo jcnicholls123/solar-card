@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [0.1.4] - 2026-05-27
+
+### Fixed
+
+- Sunny weather no longer renders hidden rain, storm, or snow particles.
+
 ## [0.1.3] - 2026-05-27
 
 ### Changed
