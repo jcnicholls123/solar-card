@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [0.1.7] - 2026-05-27
+
+### Changed
+
+- Added the Solar Card icon to the README header for GitHub and HACS details.
+
 ## [0.1.6] - 2026-05-27
 
 ### Fixed

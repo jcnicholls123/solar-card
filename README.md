@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="icon.svg" alt="Solar Card icon" width="112" height="112">
+</p>
+
 # Solar Card
 
 A Home Assistant Lovelace custom card for solar position data.
