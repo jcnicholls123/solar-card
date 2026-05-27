@@ -23,10 +23,11 @@ export class Moon {
   readonly locale: FrontendLocaleData;
   readonly useMiles: boolean;
   readonly lang: string;
+  readonly daylightHours?: number;
   private localize: LocalizeFunc;
   public _sunCalc = SunCalc;
 
-  constructor(data: { date: Date; config: LunarPhaseCardConfig; locale: FrontendLocaleData }) {
+  constructor(data: { date: Date; config: LunarPhaseCardConfig; locale: FrontendLocaleData; daylightHours?: number }) {
     this._date = data.date;
     this.lang = data.locale.language;
     this.config = data.config;
@@ -36,6 +37,7 @@ export class Moon {
     };
     this.locale = data.locale;
     this.useMiles = this.config.mile_unit || false;
+    this.daylightHours = data.daylightHours;
     this.localize = setupTranslation(this.lang);
   }
 
@@ -139,7 +141,7 @@ export class Moon {
     const { azimuthDegrees, altitudeDegrees, distance } = this._getSunData(this._date);
     const { rise, set, highest, solarNoon, goldenHour, goldenHourEnd } = this._getSunTimes(this._date);
     const daylightMs = Math.max(0, new Date(set).getTime() - new Date(rise).getTime());
-    const daylightHours = daylightMs / (1000 * 60 * 60);
+    const daylightHours = this.daylightHours ?? daylightMs / (1000 * 60 * 60);
     const cardinal = this.convertCardinal(azimuthDegrees);
     const nextEvent = this._nextSolarEvent();
 

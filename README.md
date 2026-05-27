@@ -41,6 +41,7 @@ graph_chart_config:
   show_time: true
   show_current: true
   show_highest: true
+daylight_hours_entity: sensor.daylight_hours
 ```
 
 ## Configuration
@@ -62,6 +63,7 @@ graph_chart_config:
 | `hide_items` | list | Data items to hide. |
 | `number_decimals` | number | Number of decimals for numeric values. |
 | `12hr_format` | boolean | Uses 12-hour time. |
+| `daylight_hours_entity` | string | Optional daylight-hours sensor. Defaults to `sensor.daylight_hours` when that entity exists. |
 | `graph_chart_config` | object | Horizon chart options. |
 
 ## Build

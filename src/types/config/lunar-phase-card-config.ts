@@ -143,6 +143,11 @@ export interface LunarPhaseCardConfig extends LovelaceCardConfig {
    */
   '12hr_format'?: boolean;
   /**
+   * Optional Home Assistant sensor entity for daylight hours.
+   * If omitted, sensor.daylight_hours will be used when it exists.
+   */
+  daylight_hours_entity?: string;
+  /**
    * Font custom styles for the card
    */
   font_config?: FontCustomStyles;
@@ -241,6 +246,7 @@ export const DataVisualKeys = [
   'number_decimals',
   'mile_unit',
   '12hr_format',
+  'daylight_hours_entity',
   'font_config',
   'graph_chart_config',
 ] as const;

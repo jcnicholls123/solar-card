@@ -329,8 +329,19 @@ export class LunarPhaseCard extends LunarBaseCard {
       date: this._date,
       config: this.config,
       locale: this._configLocale,
+      daylightHours: this._getDaylightHoursSensorValue(),
     };
     this.moon = new Moon(initData);
+  }
+
+  private _getDaylightHoursSensorValue(): number | undefined {
+    const entityId = this.config?.daylight_hours_entity || 'sensor.daylight_hours';
+    const stateObj = entityId ? this.hass.states[entityId] : undefined;
+    if (!stateObj || ['unknown', 'unavailable'].includes(stateObj.state)) {
+      return undefined;
+    }
+    const value = Number.parseFloat(stateObj.state);
+    return Number.isFinite(value) ? value : undefined;
   }
 
   private _handleChangeSection(ev: CustomEvent) {
