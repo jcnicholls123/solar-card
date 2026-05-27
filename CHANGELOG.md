@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.0-beta.1] - 2026-05-27
+
+### Changed
+
+- Promoted Solar Card to the first 1.0 beta release.
+
 ## [0.2.1] - 2026-05-27
 
 ### Changed
