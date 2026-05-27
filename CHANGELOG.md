@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.0-beta.2] - 2026-05-27
+
+### Changed
+
+- Updated the GitHub release workflow to publish the actual changelog entry in release notes instead of a comparison link.
+
 ## [1.0.0-beta.1] - 2026-05-27
 
 ### Changed
