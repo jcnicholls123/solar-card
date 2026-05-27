@@ -275,17 +275,14 @@ const mt=t=>(e,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(t,e)}
 
       .rain-one {
         left: 36%;
-        animation: solar-rain-drop 0.92s linear infinite;
       }
 
       .rain-two {
         left: 51%;
-        animation: solar-rain-drop 0.92s linear 0.18s infinite;
       }
 
       .rain-three {
         left: 66%;
-        animation: solar-rain-drop 0.92s linear 0.36s infinite;
       }
 
       .bolt {
@@ -313,7 +310,6 @@ const mt=t=>(e,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(t,e)}
       .flake-one {
         left: 34%;
         top: 69%;
-        animation: solar-snow-fall 2.5s ease-in-out infinite;
       }
 
       .flake-two {
@@ -321,7 +317,6 @@ const mt=t=>(e,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(t,e)}
         top: 75%;
         width: 7%;
         height: 7%;
-        animation: solar-snow-fall 2.8s ease-in-out 0.35s infinite;
       }
 
       .flake-three {
@@ -329,7 +324,6 @@ const mt=t=>(e,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(t,e)}
         top: 68%;
         width: 8%;
         height: 8%;
-        animation: solar-snow-fall 2.65s ease-in-out 0.7s infinite;
       }
 
       .is-cloudy,
@@ -392,8 +386,35 @@ const mt=t=>(e,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(t,e)}
         opacity: 1;
       }
 
+      .is-rain .rain-one,
+      .is-storm .rain-one {
+        animation: solar-rain-drop 0.92s linear infinite;
+      }
+
+      .is-rain .rain-two,
+      .is-storm .rain-two {
+        animation: solar-rain-drop 0.92s linear 0.18s infinite;
+      }
+
+      .is-rain .rain-three,
+      .is-storm .rain-three {
+        animation: solar-rain-drop 0.92s linear 0.36s infinite;
+      }
+
       .is-storm .bolt {
         animation: solar-bolt-flash 2.2s steps(2, end) infinite;
+      }
+
+      .is-snow .flake-one {
+        animation: solar-snow-fall 2.5s ease-in-out infinite;
+      }
+
+      .is-snow .flake-two {
+        animation: solar-snow-fall 2.8s ease-in-out 0.35s infinite;
+      }
+
+      .is-snow .flake-three {
+        animation: solar-snow-fall 2.65s ease-in-out 0.7s infinite;
       }
 
       .is-fog .mist,
