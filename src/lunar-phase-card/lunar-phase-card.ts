@@ -231,18 +231,21 @@ export class LunarPhaseCard extends LunarBaseCard {
     }
 
     return html`
-      ${this._renderHeader('header')}
+      ${this._renderHeader('header', 'Solar day')}
       <lunar-moon-base slot="content" .activePage=${this._activePage} .store=${this.store}>
         ${this.renderMoonImage()}
-        <lunar-moon-calendar-footer
-          slot="moon-info"
-          .hass=${this.hass}
-          .store=${this.store}
-          .config=${this.config}
-          .card=${this}
-          .moonData=${moonData}
-          @popup-show=${this._handleCalendarPopup}
-        ></lunar-moon-calendar-footer>
+        <div slot="moon-info" class="solar-day-panel">
+          <lunar-moon-data-info .moonData=${moonData} .chunkedLimit=${4}></lunar-moon-data-info>
+          <lunar-moon-calendar-footer
+            .hass=${this.hass}
+            .store=${this.store}
+            .config=${this.config}
+            .card=${this}
+            .moonData=${moonData}
+            .hideDetails=${true}
+            @popup-show=${this._handleCalendarPopup}
+          ></lunar-moon-calendar-footer>
+        </div>
       </lunar-moon-base>
     `;
   }
@@ -456,6 +459,11 @@ export class LunarPhaseCard extends LunarBaseCard {
           height: 100%;
           pointer-events: none;
           z-index: 0;
+        }
+        .solar-day-panel {
+          display: grid;
+          gap: calc(var(--lunar-card-gutter) * 0.5);
+          width: 100%;
         }
         ha-card {
           position: relative;

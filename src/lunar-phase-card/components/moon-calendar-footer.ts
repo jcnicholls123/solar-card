@@ -24,6 +24,7 @@ export class LunarMoonCalendarFooter extends LunarBaseCard {
   @property({ attribute: false }) public moonData!: MoonData;
   @property({ attribute: false }) private card!: LunarPhaseCard;
   @property({ type: Boolean }) public _footerActive = false;
+  @property({ type: Boolean }) public hideDetails = false;
 
   protected render(): TemplateResult {
     const isToday = this.card._date.toDateString() === new Date().toDateString();
@@ -47,16 +48,18 @@ export class LunarMoonCalendarFooter extends LunarBaseCard {
 
         <div class="inline-btns">
           <ha-icon-button .path=${ICON.RIGHT} @click=${() => this.updateDate('next')}> </ha-icon-button>
-          <ha-icon-button
-            class="toggle-footer-btn"
-            .path=${ICON.CHEVRON_DOWN}
-            @click=${() => this._toggleFooter()}
-            ?active=${this._footerActive}
-          >
-          </ha-icon-button>
+          ${this.hideDetails
+            ? nothing
+            : html`<ha-icon-button
+                class="toggle-footer-btn"
+                .path=${ICON.CHEVRON_DOWN}
+                @click=${() => this._toggleFooter()}
+                ?active=${this._footerActive}
+              >
+              </ha-icon-button>`}
         </div>
       </div>
-      <div class="footer-content" ?active=${this._footerActive}>
+      <div class="footer-content" ?active=${this._footerActive && !this.hideDetails}>
         ${!this._footerActive
           ? nothing
           : html`<lunar-moon-data-info .moonData=${this.moonData}></lunar-moon-data-info>`}

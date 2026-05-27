@@ -93,6 +93,11 @@ export class LunarMoonBase extends LunarBaseCard {
         .content.--calendar-page {
           padding: 0px !important;
         }
+        .content.--calendar-page .moon-pic {
+          max-width: 112px !important;
+          min-height: 92px;
+          margin: 4px auto;
+        }
         .content.--vertical {
           display: grid;
           align-items: end;
