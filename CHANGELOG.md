@@ -12,6 +12,7 @@ All notable changes to Solar Card are tracked here.
 - Removed the calendar view from the card.
 - Removed bundled moon/lunar image assets from the repository.
 - Enlarged the weather visual and added CSS animation for sunny, cloudy, rainy, stormy, snowy, foggy, and windy states.
+- Namespaced Solar Card's internal web components so it can run alongside the original Lunar Phase Card.
 
 ### Fixed
 

@@ -14,7 +14,7 @@ import extract_color from '../../utils/extract_color';
 import { hexToRgba } from '../../utils/helpers';
 import { LunarBaseCard } from '../base-card';
 
-@customElement('lunar-moon-chart-dynamic')
+@customElement('solar-sun-chart-dynamic')
 export class LunarMoonChartDynamic extends LunarBaseCard {
   constructor() {
     super(CardArea.DYNAMIC);
@@ -90,7 +90,7 @@ export class LunarMoonChartDynamic extends LunarBaseCard {
     const cssColors = getComputedStyle(this) as CSSStyleDeclaration;
     const property = (name: string) => cssColors.getPropertyValue(name).trim();
     return {
-      PRIMARY_TEXT: property('--lunar-card-label-font-color') || property('--primary-text-color'),
+      PRIMARY_TEXT: property('--solar-card-shell-label-font-color') || property('--primary-text-color'),
       SECONDARY_TEXT: property('--secondary-text-color'),
       DEFAULT_PRIMARY_COLOR: property('--primary-color'),
       MOON_LINE_LIGHT: property('--lunar-fill-line-bellow-color'),

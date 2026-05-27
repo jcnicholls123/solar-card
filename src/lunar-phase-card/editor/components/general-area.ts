@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-@customElement('lpc-general-area')
+@customElement('solar-general-area')
 export class GeneralArea extends BaseEditor {
   constructor() {
     super();
@@ -358,6 +358,6 @@ export class GeneralArea extends BaseEditor {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lpc-general-area': GeneralArea;
+    'solar-general-area': GeneralArea;
   }
 }

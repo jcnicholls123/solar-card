@@ -14,11 +14,11 @@ import { EditorArea } from '../editor-area-config';
 import { LOCATION_FORM_SCHEMA } from '../forms';
 import { createSecondaryCodeLabel } from '../shared/nav-bar';
 
-@customElement('lpc-location-area')
+@customElement('solar-location-area')
 export class LocationArea extends BaseEditor {
   constructor() {
     super(EditorArea.LOCATION);
-    window.LunarLocationArea = this;
+    window.SolarLocationArea = this;
   }
 
   @state() private _locationConfig?: LocationConfig;
@@ -59,13 +59,13 @@ export class LocationArea extends BaseEditor {
     const locForm = this.createLpcForm(DATA, SCHEMA, source);
     return html`
       ${this._yamlActive ? this.createYamlEditor(configData) : locForm}
-      <lpc-nav-bar
+      <solar-nav-bar
         hide-primary
         .secondaryAction=${createSecondaryCodeLabel(this._yamlActive)}
         @secondary-action=${() => {
           this._yamlActive = !this._yamlActive;
         }}
-      ></lpc-nav-bar>
+      ></solar-nav-bar>
     `;
   }
 
@@ -177,6 +177,6 @@ export class LocationArea extends BaseEditor {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lpc-location-area': LocationArea;
+    'solar-location-area': LocationArea;
   }
 }

@@ -8,11 +8,11 @@ import { EditorArea } from '../editor-area-config';
 import { VISUAL_SCHEMA } from '../forms';
 import { createSecondaryCodeLabel } from '../shared/nav-bar';
 
-@customElement('lpc-appearance-area')
+@customElement('solar-appearance-area')
 export class AppearanceArea extends BaseEditor {
   constructor() {
     super(EditorArea.APPEARANCE);
-    window.LunarAppearanceArea = this;
+    window.SolarAppearanceArea = this;
   }
   @state() protected _visualConfig?: VisualBackgroundConfig;
   @state() private _yamlActive: boolean = false;
@@ -31,13 +31,13 @@ export class AppearanceArea extends BaseEditor {
     const visualFormEl = this.createLpcForm(VISUAL_DATA, visualSchema);
     return html`
       ${this._yamlActive ? this.createYamlEditor(VISUAL_DATA) : visualFormEl}
-      <lpc-nav-bar
+      <solar-nav-bar
         hide-primary
         .secondaryAction=${createSecondaryCodeLabel(this._yamlActive)}
         @secondary-action=${() => {
           this._yamlActive = !this._yamlActive;
         }}
-      ></lpc-nav-bar>
+      ></solar-nav-bar>
     `;
   }
 
@@ -48,6 +48,6 @@ export class AppearanceArea extends BaseEditor {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lpc-appearance-area': AppearanceArea;
+    'solar-appearance-area': AppearanceArea;
   }
 }

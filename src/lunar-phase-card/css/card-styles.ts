@@ -19,9 +19,9 @@ export const style = css`
   :host {
     --lpc-scale: 1;
     --lpc-unit: calc(var(--lpc-scale) * 36px);
-    --lunar-card-header-height: calc(var(--lpc-unit) + var(--lunar-card-gutter));
-    --lunar-card-padding: 12px;
-    --lunar-card-gutter: 8px;
+    --solar-card-shell-header-height: calc(var(--lpc-unit) + var(--solar-card-shell-gutter));
+    --solar-card-shell-padding: 12px;
+    --solar-card-shell-gutter: 8px;
     --mdc-icon-button-size: var(--lpc-unit);
     --mdc-icon-size: calc(var(--lpc-unit) * 0.6);
     --swiper-pagination-bullet-inactive-color: var(--secondary-text-color);

@@ -60,7 +60,7 @@ export class LunarPhaseCard extends LunarBaseCard {
 
   public connectedCallback(): void {
     super.connectedCallback();
-    window.LunarCard = this as LunarPhaseCard;
+    window.SolarCard = this as LunarPhaseCard;
     this.updateComplete.then(() => this._attachObserver());
   }
 
@@ -139,7 +139,7 @@ export class LunarPhaseCard extends LunarBaseCard {
         style=${styleMap(this._computeStyles())}
         ?raised=${appearance.hide_background !== true}
       >
-        <lunar-card
+        <solar-card-shell
           .cardWidth=${this._cardWidth}
           .cardHeight=${this._cardHeight}
           .appearance=${appearance}
@@ -151,9 +151,9 @@ export class LunarPhaseCard extends LunarBaseCard {
             [SECTION.BASE, () => this._renderBaseSection()],
             [SECTION.HORIZON, () => this._renderHorizonSection()],
           ])}
-        </lunar-card>
+        </solar-card-shell>
       </ha-card>
-      ${this._showStarfield() ? html`<lunar-star-particles></lunar-star-particles>` : nothing}
+      ${this._showStarfield() ? html`<solar-star-particles></solar-star-particles>` : nothing}
     `;
   }
 
@@ -169,7 +169,7 @@ export class LunarPhaseCard extends LunarBaseCard {
     const chunkLimit = this._cardWidth > 460 ? configLayout.max_data_per_page || 6 : undefined;
 
     return html` ${appearance.compact_view === true
-      ? html` <lunar-moon-compact-view
+      ? html` <solar-sun-compact-view
           .moonData=${moonData}
           .moon=${this.moon}
           .store=${this.store}
@@ -178,9 +178,9 @@ export class LunarPhaseCard extends LunarBaseCard {
           .appearance=${appearance}
           .header=${this._renderHeader('moon-header', this.moon.phaseName, isButtonHidden)}
           slot="content"
-        ></lunar-moon-compact-view>`
+        ></solar-sun-compact-view>`
       : html` ${!isButtonHidden ? this._renderHeader('header') : nothing}
-          <lunar-moon-base
+          <solar-sun-base
             slot="content"
             .moon=${this.moon}
             .store=${this.store}
@@ -190,39 +190,39 @@ export class LunarPhaseCard extends LunarBaseCard {
             .appearance=${appearance}
           >
             ${moonImage} ${isButtonHidden ? this._renderHeader('moon-header', undefined, true) : nothing}
-            <lunar-moon-data-info
+            <solar-sun-data-info
               slot="moon-info"
               .moonData=${moonData}
               .chunkedLimit=${chunkLimit}
-            ></lunar-moon-data-info
-          ></lunar-moon-base>`}`;
+            ></solar-sun-data-info
+          ></solar-sun-base>`}`;
   }
 
   private _renderHorizonSection(): TemplateResult {
     if (this._configGraph?.graph_type === 'dynamic') {
       return html`
         ${this._renderHeader('header')}
-        <lunar-moon-chart-dynamic
+        <solar-sun-chart-dynamic
           slot="content"
           .hass=${this.hass}
           .store=${this.store}
           .config=${this.config}
           .moon=${this.moon}
           .cardWidth=${this._cardWidth}
-        ></lunar-moon-chart-dynamic>
+        ></solar-sun-chart-dynamic>
       `;
     }
     const headerTitle = this.store.translate('card.horizonTitle');
     return html`
       ${this._renderHeader('header', headerTitle)}
-      <lunar-moon-chart-horizon
+      <solar-sun-chart-horizon
         slot="content"
         .hass=${this.hass}
         .store=${this.store}
         .config=${this.config}
         .moon=${this.moon}
         .cardWidth=${this._cardWidth}
-      ></lunar-moon-chart-horizon>
+      ></solar-sun-chart-horizon>
     `;
   }
 
@@ -236,7 +236,7 @@ export class LunarPhaseCard extends LunarBaseCard {
       title = this.moon.phaseName;
     }
     return html`
-      <lunar-phase-header
+      <solar-card-header
         slot=${slot}
         .activePage=${this._activePage}
         .moonName=${title}
@@ -245,17 +245,17 @@ export class LunarPhaseCard extends LunarBaseCard {
         .config=${this.config}
         ._buttonDisabled=${this._state === MoonState.CONTENT_CHANGING}
         @change-section=${this._handleChangeSection.bind(this)}
-      ></lunar-phase-header>
+      ></solar-card-header>
     `;
   }
 
   public renderMoonImage(): TemplateResult {
     return html`
-      <lunar-moon-image
+      <solar-weather-image
         slot="moon-pic"
         .imageData=${this.moon.moonImage}
         .weatherState=${this._weatherState()}
-      ></lunar-moon-image>
+      ></solar-weather-image>
     `;
   }
 
@@ -388,7 +388,7 @@ export class LunarPhaseCard extends LunarBaseCard {
           position: relative;
         }
         ${DEFAULT_BG_URL}
-        lunar-star-particles {
+        solar-star-particles {
           position: absolute;
           top: 0;
           left: 0;
@@ -423,6 +423,6 @@ export class LunarPhaseCard extends LunarBaseCard {
 
 declare global {
   interface Window {
-    LunarCard: LunarPhaseCard;
+    SolarCard: LunarPhaseCard;
   }
 }

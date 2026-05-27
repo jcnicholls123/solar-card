@@ -22,7 +22,7 @@ import { LunarPhaseCard } from '../lunar-phase-card';
 
 const HOVER_TIMEOUT = 150;
 
-@customElement('lunar-moon-chart-horizon')
+@customElement('solar-sun-chart-horizon')
 export class LunarMoonChartHorizon extends LunarBaseCard {
   constructor() {
     super(CardArea.HORIZON);
@@ -64,7 +64,7 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
     const cssColors = getComputedStyle(this) as CSSStyleDeclaration;
     const property = (name: string) => cssColors.getPropertyValue(name).trim();
     return {
-      primaryTextColor: property('--lunar-card-label-font-color') || property('--primary-text-color'),
+      primaryTextColor: property('--solar-card-shell-label-font-color') || property('--primary-text-color'),
       secondaryTextColor: property('--secondary-text-color'),
       fillColor: property('--lunar-fill-color'),
       fillBelowColor: property('--lunar-fill-bellow-color'),
@@ -194,7 +194,7 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
   private _renderDataItem(): TemplateResult {
     if (!this.moreInfo) return html``;
     const dataItem = this.moon.todayDataItem;
-    return html` <lunar-moon-data-info .moonData=${dataItem}></lunar-moon-data-info>`;
+    return html` <solar-sun-data-info .moonData=${dataItem}></solar-sun-data-info>`;
   }
 
   async handlePointHover(date: number): Promise<void> {
@@ -710,7 +710,7 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
           align-items: center;
           width: inherit;
           height: auto;
-          color: var(--lunar-card-label-font-color);
+          color: var(--solar-card-shell-label-font-color);
           padding-left: 12px;
           /* backdrop-filter: blur(4px); */
           background-color: rgba(0, 0, 0, 0.14);
@@ -750,6 +750,6 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lunar-moon-chart-horizon': LunarMoonChartHorizon;
+    'solar-sun-chart-horizon': LunarMoonChartHorizon;
   }
 }

@@ -76,7 +76,7 @@ export class BaseEditor extends LitElement {
 
   protected createLpcForm(data: any, schema: any, key?: string | number, subKey?: string | number): TemplateResult {
     const currentConfig = { ...(this.config || {}) };
-    return html`<lpc-form-editor
+    return html`<solar-form-editor
       .hass=${this.hass}
       .store=${this.store}
       .data=${data}
@@ -85,7 +85,7 @@ export class BaseEditor extends LitElement {
       .key=${key}
       .subKey=${subKey}
       @value-changed=${this._onValueChanged}
-    ></lpc-form-editor>`;
+    ></solar-form-editor>`;
   }
 
   protected _onValueChanged(ev: CustomEvent): void {
@@ -134,7 +134,7 @@ export class BaseEditor extends LitElement {
     subKey?: string | number,
     hasExtraActions = false
   ): TemplateResult {
-    return html`<lpc-yaml-editor
+    return html`<solar-yaml-editor
       ._hass=${this._hass}
       .configDefault=${defaultConfig}
       .hasExtraActions=${hasExtraActions}
@@ -142,7 +142,7 @@ export class BaseEditor extends LitElement {
       .subKey=${subKey}
       @yaml-value-changed=${this._onYamlValueChanged}
       @yaml-editor-closed=${this._onYamlEditorClosed}
-    ></lpc-yaml-editor>`;
+    ></solar-yaml-editor>`;
   }
   protected _onYamlValueChanged(ev: CustomEvent): void {
     ev.stopPropagation();

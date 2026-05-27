@@ -5,7 +5,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { MoonImage } from '../../types/config/chart-config';
 // import { LunarBaseElement } from '../base-element';
 
-@customElement('lunar-moon-image')
+@customElement('solar-weather-image')
 export class LunarMoonImage extends LitElement {
   @property({ attribute: false }) public imageData!: MoonImage;
   @property({ type: String }) public weatherState = 'sunny';
@@ -19,7 +19,7 @@ export class LunarMoonImage extends LitElement {
 
   public connectedCallback(): void {
     super.connectedCallback();
-    window.LunarMoonPic = this;
+    window.SolarWeatherPic = this;
   }
 
   protected firstUpdated(): void {
@@ -341,6 +341,6 @@ export class LunarMoonImage extends LitElement {
 
 declare global {
   interface Window {
-    LunarMoonPic: LunarMoonImage;
+    SolarWeatherPic: LunarMoonImage;
   }
 }

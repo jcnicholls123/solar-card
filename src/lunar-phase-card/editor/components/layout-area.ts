@@ -14,11 +14,11 @@ import { APPEARANCE_FORM_SCHEMA } from '../forms';
 import { LAYOUT_SCHEMA } from '../forms/layout-schema';
 import { createSecondaryCodeLabel } from '../shared/nav-bar';
 
-@customElement('lpc-layout-area')
+@customElement('solar-layout-area')
 export class LayoutArea extends BaseEditor {
   constructor() {
     super(EditorArea.LAYOUT);
-    window.LunarLayoutArea = this;
+    window.SolarLayoutArea = this;
   }
 
   @state() private _appearanceLayoutConfig?: AppearanceLayoutConfig;
@@ -51,13 +51,13 @@ export class LayoutArea extends BaseEditor {
 
     return html`
       ${this._yamlActive ? this.createYamlEditor(dataVisualConfigCombined) : combinedForm}
-      <lpc-nav-bar
+      <solar-nav-bar
         hide-primary
         .secondaryAction=${createSecondaryCodeLabel(this._yamlActive)}
         @secondary-action=${() => {
           this._yamlActive = !this._yamlActive;
         }}
-      ></lpc-nav-bar>
+      ></solar-nav-bar>
     `;
   }
 
@@ -68,6 +68,6 @@ export class LayoutArea extends BaseEditor {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lpc-layout-area': LayoutArea;
+    'solar-layout-area': LayoutArea;
   }
 }

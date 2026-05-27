@@ -11,7 +11,7 @@ import { objectToChunks } from '../../utils/chunk-object';
 import { getObjectDifferences, logChangedValues } from '../../utils/object-differences';
 import { LunarBaseCard } from '../base-card';
 
-@customElement('lunar-moon-data-info')
+@customElement('solar-sun-data-info')
 export class LunarMoonDataInfo extends LunarBaseCard {
   @property({ attribute: false }) public moonData!: MoonData;
   @property({ attribute: false }) public chunkedLimit?: number;

@@ -160,11 +160,11 @@ export class LunarBaseCard extends LunarBaseElement {
   }
 
   public renderMoonImage(): TemplateResult {
-    return html`<lunar-moon-image slot="moon-pic" .imageData=${this.moon.moonImage}></lunar-moon-image>`;
+    return html`<solar-weather-image slot="moon-pic" .imageData=${this.moon.moonImage}></solar-weather-image>`;
   }
 
   public renderTimeClock(): TemplateResult {
-    return html`<lunar-moon-clock-time .hass=${this.hass} .configLocale=${this._locale}></lunar-moon-clock-time>`;
+    return html`<solar-sun-clock-time .hass=${this.hass} .configLocale=${this._locale}></solar-sun-clock-time>`;
   }
 
   static get styles(): CSSResultGroup {

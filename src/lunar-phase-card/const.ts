@@ -6,8 +6,7 @@ export const LUNAR_PHASE_CARD_EDITOR_NAME = `${LUNAR_PHASE_CARD_NAME}-editor`;
 
 export const COMPONENT = {
   HEADER: `${PREFIX_NAME}-header`,
-  CARD: 'lunar-card',
-  BASE: 'lunar-moon-base',
-  CALENDAR: 'lunar-moon-calendar-footer',
-  CHART_DYNAMIC: 'lunar-moon-chart-dynamic',
+  CARD: 'solar-card-shell',
+  BASE: 'solar-sun-base',
+  CHART_DYNAMIC: 'solar-sun-chart-dynamic',
 };

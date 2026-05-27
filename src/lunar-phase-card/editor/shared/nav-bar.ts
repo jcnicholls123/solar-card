@@ -33,7 +33,7 @@ export const createSecondaryCodeLabel = (yamlMode: boolean, button: boolean = fa
   `;
 };
 
-@customElement('lpc-nav-bar')
+@customElement('solar-nav-bar')
 export class NavBar extends LitElement {
   @property({ type: Boolean, attribute: 'hide-primary', reflect: true }) public hidePrimary = false;
   @property({ type: Boolean, attribute: 'hide-secondary', reflect: true }) public hideSecondary = false;

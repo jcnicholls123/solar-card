@@ -3,7 +3,7 @@ import type { Container } from '@tsparticles/engine';
 import { html, css, LitElement, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-@customElement('lunar-star-particles')
+@customElement('solar-star-particles')
 export class LunarStarParticles extends LitElement {
   @property({ type: String }) private _id = `lunar-${Math.random().toString(36).substring(2, 10)}`;
 
@@ -303,6 +303,6 @@ export class LunarStarParticles extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lunar-star-particles': LunarStarParticles;
+    'solar-star-particles': LunarStarParticles;
   }
 }

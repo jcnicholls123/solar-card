@@ -14,7 +14,7 @@ const SECTION_ICON: Record<SECTION, string> = {
   [SECTION.FULL_CALENDAR]: ICON.CALENDAR,
 };
 
-@customElement('lunar-phase-header')
+@customElement('solar-card-header')
 export class LunarHeader extends LunarBaseCard {
   constructor() {
     super(CardArea.HEADER);
@@ -106,7 +106,7 @@ export class LunarHeader extends LunarBaseCard {
           display: block;
           width: 100%;
           backdrop-filter: blur(2px);
-          height: var(--lunar-card-header-height);
+          height: var(--solar-card-shell-header-height);
           z-index: 2;
         }
         .header {
@@ -129,7 +129,7 @@ export class LunarHeader extends LunarBaseCard {
           text-transform: var(--lpc-header-font-style, none);
           font-size: var(--lpc-header-font-size, var(--ha-font-size-xl, 20px));
           white-space: nowrap;
-          margin-inline-start: var(--lunar-card-gutter, 8px);
+          margin-inline-start: var(--solar-card-shell-gutter, 8px);
           margin-inline-end: auto;
           line-height: normal;
         }
@@ -171,6 +171,6 @@ declare global {
     'change-section': { section: SECTION };
   }
   interface HTMLElementTagNameMap {
-    'lunar-phase-header': LunarHeader;
+    'solar-card-header': LunarHeader;
   }
 }

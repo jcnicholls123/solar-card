@@ -23,7 +23,7 @@ const HA_FORM_STYLE = css`
   }
 `.toString();
 
-@customElement('lpc-form-editor')
+@customElement('solar-form-editor')
 export class FormEditor extends BaseEditor {
   @property({ attribute: false }) data!: unknown;
   @property({ attribute: false }) schema!: unknown;
@@ -128,6 +128,6 @@ export class FormEditor extends BaseEditor {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lpc-form-editor': FormEditor;
+    'solar-form-editor': FormEditor;
   }
 }

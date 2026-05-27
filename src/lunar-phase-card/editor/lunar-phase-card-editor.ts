@@ -27,7 +27,7 @@ export class LunarPhaseCardEditor extends BaseEditor implements LovelaceCardEdit
     super.connectedCallback();
     void loadHaComponents();
     void refactorEditDialog();
-    window.LunarEditor = this;
+    window.SolarEditor = this;
   }
   disconnectedCallback(): void {
     super.disconnectedCallback();
@@ -48,13 +48,13 @@ export class LunarPhaseCardEditor extends BaseEditor implements LovelaceCardEdit
     this.createStore();
 
     return html` <div class="base-config">
-      <lpc-general-area
+      <solar-general-area
         ._hass=${this._hass}
         .config=${this.config}
         .store=${this.store}
         .value=${this.editorArea}
         @area-changed=${this._areaChanged}
-      ></lpc-general-area>
+      ></solar-general-area>
       ${this._renderSelectedConfigType()}
     </div>`;
   }
@@ -68,21 +68,21 @@ export class LunarPhaseCardEditor extends BaseEditor implements LovelaceCardEdit
     return areaMap[selected] || nothing;
   }
   private _renderLocationArea(): TemplateResult {
-    return html`<lpc-location-area
+    return html`<solar-location-area
       ._hass=${this._hass}
       .config=${this.config}
       .store=${this.store}
-    ></lpc-location-area>`;
+    ></solar-location-area>`;
   }
   private _renderAppearanceArea(): TemplateResult {
-    return html`<lpc-appearance-area
+    return html`<solar-appearance-area
       ._hass=${this._hass}
       .config=${this.config}
       .store=${this.store}
-    ></lpc-appearance-area>`;
+    ></solar-appearance-area>`;
   }
   private _renderLayoutArea(): TemplateResult {
-    return html`<lpc-layout-area ._hass=${this._hass} .config=${this.config} .store=${this.store}></lpc-layout-area>`;
+    return html`<solar-layout-area ._hass=${this._hass} .config=${this.config} .store=${this.store}></solar-layout-area>`;
   }
 
   private _areaChanged(ev: CustomEvent): void {
@@ -103,6 +103,6 @@ customElements.define(LUNAR_PHASE_CARD_EDITOR_NAME, LunarPhaseCardEditor);
 
 declare global {
   interface Window {
-    LunarEditor: LunarPhaseCardEditor;
+    SolarEditor: LunarPhaseCardEditor;
   }
 }

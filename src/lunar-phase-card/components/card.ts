@@ -6,7 +6,7 @@ import { SECTION } from '../../const';
 import { CardAppearance } from '../../types/config/lunar-phase-card-config';
 import { LunarBaseCard } from '../base-card';
 
-@customElement('lunar-card')
+@customElement('solar-card-shell')
 export class Card extends LunarBaseCard {
   @property({ type: Number }) public cardWidth = 0;
   @property({ type: Number }) public cardHeight = 0;
@@ -94,7 +94,7 @@ export class Card extends LunarBaseCard {
           left: 0;
           right: 0;
           width: 100%;
-          /* padding-inline-start: var(--lunar-card-gutter, 8px); */
+          /* padding-inline-start: var(--solar-card-shell-gutter, 8px); */
         }
 
         .container.--no-header > ::slotted([slot='header']),
@@ -111,7 +111,7 @@ export class Card extends LunarBaseCard {
           position: relative;
           align-items: center;
           width: 100%;
-          margin-top: var(--lunar-card-header-height);
+          margin-top: var(--solar-card-shell-header-height);
           flex: 1;
         }
 

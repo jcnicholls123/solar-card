@@ -7,7 +7,7 @@ import { SECTION } from '../../const';
 import { CardArea } from '../../types/card-area';
 import { LunarBaseCard } from '../base-card';
 
-@customElement('lunar-moon-base')
+@customElement('solar-sun-base')
 export class LunarMoonBase extends LunarBaseCard {
   constructor() {
     super(CardArea.BASE);
@@ -83,8 +83,8 @@ export class LunarMoonBase extends LunarBaseCard {
 
         .content {
           display: flex;
-          gap: var(--lunar-card-gutter);
-          padding-inline: var(--lunar-card-padding);
+          gap: var(--solar-card-shell-gutter);
+          padding-inline: var(--solar-card-shell-padding);
           min-height: var(--lpc-content-min-height, initial);
         }
         .content.--reverse {
@@ -102,7 +102,7 @@ export class LunarMoonBase extends LunarBaseCard {
           display: grid;
           align-items: end;
           justify-items: center;
-          gap: calc(var(--lunar-card-gutter) * 0.5);
+          gap: calc(var(--solar-card-shell-gutter) * 0.5);
           /* min-height: inherit; */
         }
         .content.--compact-view > .moon-pic {

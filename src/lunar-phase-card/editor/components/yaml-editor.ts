@@ -19,7 +19,7 @@ const YAML_ACTION_STYLE = css`
   }
 `.toString();
 
-@customElement('lpc-yaml-editor')
+@customElement('solar-yaml-editor')
 export class YamlEditor extends BaseEditor {
   @property({ attribute: false }) public configDefault: any;
   @property({ type: Boolean, attribute: 'has-extra-actions' }) public hasExtraActions = false;

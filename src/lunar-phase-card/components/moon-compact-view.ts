@@ -6,7 +6,7 @@ import { CardArea } from '../../types/card-area';
 import { MoonData } from '../../types/config/chart-config';
 import { LunarBaseCard } from '../base-card';
 
-@customElement('lunar-moon-compact-view')
+@customElement('solar-sun-compact-view')
 export class LunarMoonCompactView extends LunarBaseCard {
   @property({ attribute: false }) public moonData!: MoonData;
   @property({ attribute: false }) public moonImage!: TemplateResult;
@@ -55,7 +55,7 @@ export class LunarMoonCompactView extends LunarBaseCard {
       `;
     };
     return html`
-      <lunar-moon-base
+      <solar-sun-base
         id="compact-main"
         .moon=${this.moon}
         .store=${this.store}
@@ -69,7 +69,7 @@ export class LunarMoonCompactView extends LunarBaseCard {
           <div class="moon-fraction">${moonData.moonFraction!.value} ${this.store.translate('card.illuminated')}</div>
           <div class="compact-view-items">${Object.keys(items).map((key) => renderCompactItem(key))}</div>
         </div>
-      </lunar-moon-base>
+      </solar-sun-base>
       ${this._renderDataMinial()}
     `;
   }
@@ -111,7 +111,7 @@ export class LunarMoonCompactView extends LunarBaseCard {
       <div class="moon-data-minimal" ?hidden=${true} @click=${this._toggleMinimalData}>
         ${this.renderTimeClock()}
 
-        <lunar-moon-data-info .moonData=${addedData} .chunkedLimit=${4}></lunar-moon-data-info>
+        <solar-sun-data-info .moonData=${addedData} .chunkedLimit=${4}></solar-sun-data-info>
       </div>
     `;
   }
@@ -171,13 +171,13 @@ export class LunarMoonCompactView extends LunarBaseCard {
         .pic-con {
           user-select: all;
           cursor: pointer;
-          padding: calc(var(--lunar-card-gutter, 8px) / 2);
+          padding: calc(var(--solar-card-shell-gutter, 8px) / 2);
         }
 
         .compact-view-container {
           display: flex;
           width: 100%;
-          gap: var(--lunar-card-padding);
+          gap: var(--solar-card-shell-padding);
           /* margin-inline: 8px; */
           overflow: hidden;
           --mdc-icon-size: 17px;
@@ -189,12 +189,12 @@ export class LunarMoonCompactView extends LunarBaseCard {
           font-size: var(--ha-font-size-l);
           letter-spacing: 1px;
           color: rgba(from var(--primary-text-color) r g b / 0.8);
-          margin-inline-start: var(--lunar-card-gutter);
+          margin-inline-start: var(--solar-card-shell-gutter);
         }
         .compact-view-items {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: var(--lunar-card-gutter);
+          gap: var(--solar-card-shell-gutter);
           width: 100%;
         }
 
@@ -203,8 +203,8 @@ export class LunarMoonCompactView extends LunarBaseCard {
           width: 100%;
           flex-direction: column;
           font-size: var(--lpc-label-font-size, var(--ha-font-size-m));
-          color: var(--lunar-card-label-font-color, var(--primary-text-color));
-          text-transform: var(--lunar-card-label-text-transform, none);
+          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
+          text-transform: var(--solar-card-shell-label-text-transform, none);
           align-items: center;
           justify-content: space-between;
         }
@@ -223,18 +223,18 @@ export class LunarMoonCompactView extends LunarBaseCard {
           grid-template-columns: 1fr 27% 1fr;
           /* width: 100%; */
           /* height: 100%;
-            padding: var(--lunar-card-gutter);
+            padding: var(--solar-card-shell-gutter);
             padding-block: initial; */
         }
 
         .moon-data-minimal {
           display: inline-grid;
           width: 100%;
-          padding: var(--lunar-card-gutter);
+          padding: var(--solar-card-shell-gutter);
           /* padding-bottom: initial; */
           transition: all 300ms ease-in-out;
           flex-direction: column;
-          color: var(--lunar-card-label-font-color, var(--primary-text-color));
+          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
           justify-items: center;
         }
 
@@ -244,7 +244,7 @@ export class LunarMoonCompactView extends LunarBaseCard {
           width: 100%;
           height: 100%;
           text-align: center;
-          color: var(--lunar-card-label-font-color, var(--primary-text-color));
+          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
           transition: all 0.2s ease-in-out;
           align-items: center;
           justify-content: center;
@@ -276,7 +276,7 @@ export class LunarMoonCompactView extends LunarBaseCard {
         }
 
         .compact-item-minimal span.value {
-          font-size: var(--lunar-card-label-font-size, var(--ha-font-size-m));
+          font-size: var(--solar-card-shell-label-font-size, var(--ha-font-size-m));
           font-weight: 400;
           color: inherit;
           white-space: nowrap;
@@ -285,7 +285,7 @@ export class LunarMoonCompactView extends LunarBaseCard {
 
         .compact-item-minimal span.label {
           font-weight: 600;
-          color: var(--lunar-card-label-font-color, var(--primary-text-color));
+          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
           white-space: nowrap;
           overflow: hidden;
           font-size: 1.3rem;
@@ -308,8 +308,8 @@ export class LunarMoonCompactView extends LunarBaseCard {
           justify-content: center;
           align-items: center;
           padding-top: 8px;
-          text-transform: var(--lunar-card-header-text-transform, capitalize);
-          color: var(--lunar-card-header-font-color, var(--primary-text-color));
+          text-transform: var(--solar-card-shell-header-text-transform, capitalize);
+          color: var(--solar-card-shell-header-font-color, var(--primary-text-color));
           white-space: nowrap;
         }
         .moon-only-container {
@@ -317,10 +317,10 @@ export class LunarMoonCompactView extends LunarBaseCard {
           justify-content: var(--moon-justify-content, center);
           align-items: center;
         }
-        .moon-only-container > lunar-moon-image {
+        .moon-only-container > solar-weather-image {
           width: var(--moon-size, 100%);
           height: auto;
-          padding: var(--lunar-card-gutter, 8px);
+          padding: var(--solar-card-shell-gutter, 8px);
         }
       `,
     ];
