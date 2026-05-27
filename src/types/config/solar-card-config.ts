@@ -35,7 +35,7 @@ export const HIDDEN_ITEMS = [
 
 export type HiddenItem = (typeof HIDDEN_ITEMS)[number];
 
-export interface LunarPhaseCardConfig extends LovelaceCardConfig {
+export interface SolarCardConfig extends LovelaceCardConfig {
   /**
    * Source of location for lat lon values
    * 'default' - use Home Assistant config location
@@ -210,7 +210,7 @@ export const LocationConfigKeys = [
   'longitude',
 ] as const;
 
-export type LocationConfig = Pick<LunarPhaseCardConfig, (typeof LocationConfigKeys)[number]>;
+export type LocationConfig = Pick<SolarCardConfig, (typeof LocationConfigKeys)[number]>;
 
 export const VisualBackgroundOptions = [
   'language',
@@ -222,7 +222,7 @@ export const VisualBackgroundOptions = [
   'theme_mode',
 ] as const;
 
-export type VisualBackgroundConfig = Pick<LunarPhaseCardConfig, (typeof VisualBackgroundOptions)[number]>;
+export type VisualBackgroundConfig = Pick<SolarCardConfig, (typeof VisualBackgroundOptions)[number]>;
 
 export const AppearanceLayoutKeys = [
   'default_section',
@@ -235,11 +235,11 @@ export const AppearanceLayoutKeys = [
   'hide_compact_label',
 ] as const;
 
-export type AppearanceLayoutConfig = Pick<LunarPhaseCardConfig, (typeof AppearanceLayoutKeys)[number]>;
+export type AppearanceLayoutConfig = Pick<SolarCardConfig, (typeof AppearanceLayoutKeys)[number]>;
 
 export const CardAppearanceLayoutKeys = [...VisualBackgroundOptions, ...AppearanceLayoutKeys] as const;
 
-export type CardAppearance = Pick<LunarPhaseCardConfig, (typeof CardAppearanceLayoutKeys)[number]>;
+export type CardAppearance = Pick<SolarCardConfig, (typeof CardAppearanceLayoutKeys)[number]>;
 
 export const DataVisualKeys = [
   'hide_items',
@@ -252,7 +252,7 @@ export const DataVisualKeys = [
   'graph_chart_config',
 ] as const;
 
-export type DataVisualConfig = Pick<LunarPhaseCardConfig, (typeof DataVisualKeys)[number]>;
+export type DataVisualConfig = Pick<SolarCardConfig, (typeof DataVisualKeys)[number]>;
 
 export const ConfigFieldOrder = [
   'type',

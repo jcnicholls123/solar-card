@@ -12,10 +12,10 @@ import { FILL_COLORS } from '../../types/config/chart-config';
 import { CHART_FILL_COLORS } from '../../types/config/graph-config';
 import extract_color from '../../utils/extract_color';
 import { hexToRgba } from '../../utils/helpers';
-import { LunarBaseCard } from '../base-card';
+import { SolarBaseCard } from '../base-card';
 
 @customElement('solar-sun-chart-dynamic')
-export class LunarMoonChartDynamic extends LunarBaseCard {
+export class SolarSunChartDynamic extends SolarBaseCard {
   constructor() {
     super(CardArea.DYNAMIC);
   }
@@ -93,11 +93,11 @@ export class LunarMoonChartDynamic extends LunarBaseCard {
       PRIMARY_TEXT: property('--solar-card-shell-label-font-color') || property('--primary-text-color'),
       SECONDARY_TEXT: property('--secondary-text-color'),
       DEFAULT_PRIMARY_COLOR: property('--primary-color'),
-      MOON_LINE_LIGHT: property('--lunar-fill-line-bellow-color'),
-      FILL_BELLOW: property('--lunar-fill-bellow-color'),
-      fillColor: property('--lunar-fill-color'),
-      fillBelowColor: property('--lunar-fill-bellow-color'),
-      fillBelowLineColor: property('--lunar-fill-line-bellow-color'),
+      SUN_LINE_LIGHT: property('--solar-fill-line-bellow-color'),
+      FILL_BELLOW: property('--solar-fill-bellow-color'),
+      fillColor: property('--solar-fill-color'),
+      fillBelowColor: property('--solar-fill-bellow-color'),
+      fillBelowLineColor: property('--solar-fill-line-bellow-color'),
     };
   }
 
@@ -171,7 +171,7 @@ export class LunarMoonChartDynamic extends LunarBaseCard {
     const { PRIMARY_TEXT, SECONDARY_TEXT, fillBelowColor, fillBelowLineColor } = this.CSS_COLOR;
     const fillAbove = this.fillColors.fillAbove;
     const BORDER_COLORS = {
-      BOLD: isBackground ? CHART_COLOR.MOON_LINE_BOLD : PRIMARY_TEXT,
+      BOLD: isBackground ? CHART_COLOR.SUN_LINE_BOLD : PRIMARY_TEXT,
       LIGHT: isBackground ? fillBelowLineColor : SECONDARY_TEXT,
     };
     const chartData = this.todayData.chartData;
@@ -633,9 +633,9 @@ export class LunarMoonChartDynamic extends LunarBaseCard {
     const styles: Record<string, string> = {};
     Object.entries(fillColors).forEach(([key, value]) => {
       if (key === 'color') {
-        styles[`--lunar-fill-color`] = value;
+        styles[`--solar-fill-color`] = value;
       } else {
-        styles[`--lunar-fill-${key}-color`] = value;
+        styles[`--solar-fill-${key}-color`] = value;
       }
     });
     Object.entries(styles).forEach(([key, value]) => {

@@ -1,4 +1,4 @@
-import './lunar-phase-card/lunar-phase-card';
+import './solar-card/solar-card';
 
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({

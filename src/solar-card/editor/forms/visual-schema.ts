@@ -1,6 +1,6 @@
 import { LocalizeFunc } from '../../../ha';
 import { langKeys } from '../../../localize/languageImports';
-import { THEME_MODE, VisualBackgroundConfig } from '../../../types/config/lunar-phase-card-config';
+import { THEME_MODE, VisualBackgroundConfig } from '../../../types/config/solar-card-config';
 import { computeBooleanItem, computeSelectorSchema } from './helper';
 import { HaFormBaseSchemaExtended } from './types';
 

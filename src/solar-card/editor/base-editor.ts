@@ -5,7 +5,7 @@ import { property, state } from 'lit/decorators.js';
 import { HomeAssistant } from '../../ha';
 import { fireEvent } from '../../ha';
 import { Store } from '../../model/store';
-import { ConfigFieldOrder, LunarPhaseCardConfig } from '../../types/config/lunar-phase-card-config';
+import { ConfigFieldOrder, SolarCardConfig } from '../../types/config/solar-card-config';
 import { cardNeedsMigration, migrateConfig } from '../../types/utils';
 import { getObjectDifferences, hasObjectDifferences, logChangedValues } from '../../utils/object-differences';
 import { orderProperties } from '../../utils/order-properties';
@@ -14,10 +14,10 @@ import { createEditorMenuItems, EditorArea, EditorMenuItems } from './editor-are
 
 export class BaseEditor extends LitElement {
   @property({ attribute: false }) _hass!: HomeAssistant;
-  @property({ attribute: false }) config!: LunarPhaseCardConfig;
+  @property({ attribute: false }) config!: SolarCardConfig;
   @property({ attribute: false }) store!: Store;
 
-  @state() private _legacyConfig?: LunarPhaseCardConfig;
+  @state() private _legacyConfig?: SolarCardConfig;
 
   protected _stylesManager: HomeAssistantStylesManager;
 
@@ -26,7 +26,7 @@ export class BaseEditor extends LitElement {
   constructor(area?: EditorArea) {
     super();
     this._stylesManager = new HomeAssistantStylesManager({
-      prefix: 'lpc-editor',
+      prefix: 'solar-editor',
       throwWarnings: true,
     });
     if (area) {
@@ -45,7 +45,7 @@ export class BaseEditor extends LitElement {
     return createEditorMenuItems(this.store!.translate);
   }
 
-  public setConfig(config: LunarPhaseCardConfig): void {
+  public setConfig(config: SolarCardConfig): void {
     if (cardNeedsMigration(config)) {
       console.debug('Config needs migration. Migrating now...');
       let newConfig = migrateConfig(config);
@@ -60,7 +60,7 @@ export class BaseEditor extends LitElement {
     }
   }
 
-  protected configChanged(changedConfig: Partial<LunarPhaseCardConfig> | undefined = undefined) {
+  protected configChanged(changedConfig: Partial<SolarCardConfig> | undefined = undefined) {
     if (changedConfig) {
       let newConfig = {
         ...this.config,
@@ -101,7 +101,7 @@ export class BaseEditor extends LitElement {
       return;
     }
 
-    let updates: Partial<LunarPhaseCardConfig> = {};
+    let updates: Partial<SolarCardConfig> = {};
     if (key && subKey) {
       updates[key] = {
         ...(this.config[key] || {}),
@@ -149,7 +149,7 @@ export class BaseEditor extends LitElement {
     const { key, subKey } = ev.target as any;
     const value = ev.detail.value;
     // console.debug('YAML changes:', { key, subKey, value });
-    let updates: Partial<LunarPhaseCardConfig> = {};
+    let updates: Partial<SolarCardConfig> = {};
     if (key && subKey) {
       updates[key] = {
         ...(this.config[key] || {}),

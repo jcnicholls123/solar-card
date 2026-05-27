@@ -2,7 +2,7 @@ import { pick } from 'es-toolkit';
 import { css, CSSResultGroup, TemplateResult, PropertyValues, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import { VisualBackgroundConfig, VisualBackgroundOptions } from '../../../types/config/lunar-phase-card-config';
+import { VisualBackgroundConfig, VisualBackgroundOptions } from '../../../types/config/solar-card-config';
 import { BaseEditor } from '../base-editor';
 import { EditorArea } from '../editor-area-config';
 import { VISUAL_SCHEMA } from '../forms';

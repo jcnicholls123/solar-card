@@ -1,8 +1,8 @@
 import { HomeAssistant } from '../ha';
-import { LunarPhaseCardConfig } from '../types/config/lunar-phase-card-config';
+import { SolarCardConfig } from '../types/config/solar-card-config';
 import { useAmPm } from './helpers';
 
-export const computeStubConfig = (hass: HomeAssistant): Partial<LunarPhaseCardConfig> => {
+export const computeStubConfig = (hass: HomeAssistant): Partial<SolarCardConfig> => {
   const {
     latitude,
     longitude,

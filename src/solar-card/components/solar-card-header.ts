@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ICON, SECTION } from '../../const';
 import { fireEvent } from '../../ha';
 import { CardArea } from '../../types/card-area';
-import { LunarBaseCard } from '../base-card';
+import { SolarBaseCard } from '../base-card';
 
 const SectionsList = [SECTION.BASE, SECTION.HORIZON];
 const SECTION_ICON: Record<SECTION, string> = {
@@ -15,7 +15,7 @@ const SECTION_ICON: Record<SECTION, string> = {
 };
 
 @customElement('solar-card-header')
-export class LunarHeader extends LunarBaseCard {
+export class SolarCardHeader extends SolarBaseCard {
   constructor() {
     super(CardArea.HEADER);
   }
@@ -125,9 +125,9 @@ export class LunarHeader extends LunarBaseCard {
         .title {
           overflow: hidden;
           text-overflow: ellipsis;
-          color: var(--lpc-header-font-color, var(--primary-text-color));
-          text-transform: var(--lpc-header-font-style, none);
-          font-size: var(--lpc-header-font-size, var(--ha-font-size-xl, 20px));
+          color: var(--solar-header-font-color, var(--primary-text-color));
+          text-transform: var(--solar-header-font-style, none);
+          font-size: var(--solar-header-font-size, var(--ha-font-size-xl, 20px));
           white-space: nowrap;
           margin-inline-start: var(--solar-card-shell-gutter, 8px);
           margin-inline-end: auto;
@@ -140,7 +140,7 @@ export class LunarHeader extends LunarBaseCard {
         }
         .actions,
         .menu-actions {
-          --lpc-icon-color: var(--lpc-header-font-color, var(--secondary-text-color));
+          --solar-icon-color: var(--solar-header-font-color, var(--secondary-text-color));
           flex-grow: 0;
           flex-shrink: 0;
         }
@@ -156,7 +156,7 @@ export class LunarHeader extends LunarBaseCard {
           z-index: 10;
         }
         ha-icon-button[active] {
-          color: var(--lpc-accent-color, var(--primary-color));
+          color: var(--solar-accent-color, var(--primary-color));
         }
         ha-icon-button.trigger-icon {
           padding: 0 0 !important;
@@ -171,6 +171,6 @@ declare global {
     'change-section': { section: SECTION };
   }
   interface HTMLElementTagNameMap {
-    'solar-card-header': LunarHeader;
+    'solar-card-header': SolarCardHeader;
   }
 }

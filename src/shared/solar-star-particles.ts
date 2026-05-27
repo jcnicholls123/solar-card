@@ -4,8 +4,8 @@ import { html, css, LitElement, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 @customElement('solar-star-particles')
-export class LunarStarParticles extends LitElement {
-  @property({ type: String }) private _id = `lunar-${Math.random().toString(36).substring(2, 10)}`;
+export class SolarStarParticles extends LitElement {
+  @property({ type: String }) private _id = `solar-${Math.random().toString(36).substring(2, 10)}`;
 
   private _isLoaded = false;
 
@@ -29,7 +29,7 @@ export class LunarStarParticles extends LitElement {
   protected async firstUpdated(_changedProperties: PropertyValues): Promise<void> {
     super.firstUpdated(_changedProperties);
     await new Promise((resolve) => requestAnimationFrame(resolve));
-    // console.log(`First updated for LunarStarField with ID: ${this._id}`);
+    // console.log(`First updated for SolarStarParticles with ID: ${this._id}`);
     this._loadParticles();
   }
 
@@ -38,7 +38,7 @@ export class LunarStarParticles extends LitElement {
 
     const particleElement = this.shadowRoot!.getElementById(this._id) as HTMLElement;
 
-    const tsParticles = await LunarStarParticles._ensureParticlesEngine();
+    const tsParticles = await SolarStarParticles._ensureParticlesEngine();
 
     const existing = tsParticles.dom().find((c) => c.id === Symbol.for(this._id));
     if (existing) {
@@ -285,7 +285,7 @@ export class LunarStarParticles extends LitElement {
       width: 100%;
       height: 100%;
     }
-    .lunar-particles {
+    .solar-particles {
       position: absolute;
       top: 0;
       left: 0;
@@ -297,12 +297,12 @@ export class LunarStarParticles extends LitElement {
   `;
 
   protected render() {
-    return html`<div id="${this._id}" class="lunar-particles"></div>`;
+    return html`<div id="${this._id}" class="solar-particles"></div>`;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'solar-star-particles': LunarStarParticles;
+    'solar-star-particles': SolarStarParticles;
   }
 }

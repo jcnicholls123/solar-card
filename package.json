@@ -1,6 +1,6 @@
 {
   "name": "solar-card",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Lovelace custom card for tracking the Sun",
   "keywords": [
     "home-assistant",
@@ -10,7 +10,7 @@
     "lovelace",
     "custom-cards"
   ],
-  "author": "Viet Ngoc",
+  "author": "jcnicholls123",
   "repository": {
     "type": "git",
     "url": "https://github.com/jcnicholls123/homeass",

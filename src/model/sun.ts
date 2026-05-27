@@ -6,7 +6,7 @@ import { FrontendLocaleData, LocalizeFunc } from '../ha';
 import { formatNumber } from '../ha/common/number/format_number';
 import setupTranslation from '../localize/translate';
 import { DynamicChartData, MoonData, MoonDataItem, MoonImage } from '../types/config/chart-config';
-import { LunarPhaseCardConfig } from '../types/config/lunar-phase-card-config';
+import { SolarCardConfig } from '../types/config/solar-card-config';
 import { compareTime, convertKmToMiles, useAmPm } from '../utils/helpers';
 
 type Location = {
@@ -16,10 +16,10 @@ type Location = {
 
 type SolarTimeKey = 'rise' | 'set';
 
-export class Moon {
+export class Sun {
   readonly _date: Date;
   readonly location: Location;
-  readonly config: LunarPhaseCardConfig;
+  readonly config: SolarCardConfig;
   readonly locale: FrontendLocaleData;
   readonly useMiles: boolean;
   readonly lang: string;
@@ -27,7 +27,7 @@ export class Moon {
   private localize: LocalizeFunc;
   public _sunCalc = SunCalc;
 
-  constructor(data: { date: Date; config: LunarPhaseCardConfig; locale: FrontendLocaleData; daylightHours?: number }) {
+  constructor(data: { date: Date; config: SolarCardConfig; locale: FrontendLocaleData; daylightHours?: number }) {
     this._date = data.date;
     this.lang = data.locale.language;
     this.config = data.config;

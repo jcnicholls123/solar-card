@@ -5,10 +5,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { SECTION } from '../../const';
 import { CardArea } from '../../types/card-area';
-import { LunarBaseCard } from '../base-card';
+import { SolarBaseCard } from '../base-card';
 
 @customElement('solar-sun-base')
-export class LunarMoonBase extends LunarBaseCard {
+export class SolarSunBase extends SolarBaseCard {
   constructor() {
     super(CardArea.BASE);
   }
@@ -85,7 +85,7 @@ export class LunarMoonBase extends LunarBaseCard {
           display: flex;
           gap: var(--solar-card-shell-gutter);
           padding-inline: var(--solar-card-shell-padding);
-          min-height: var(--lpc-content-min-height, initial);
+          min-height: var(--solar-content-min-height, initial);
         }
         .content.--reverse {
           flex-direction: row-reverse;
@@ -133,7 +133,7 @@ export class LunarMoonBase extends LunarBaseCard {
         }
 
         .info ::slotted([slot='moon-header']) {
-          min-height: var(--lpc-unit);
+          min-height: var(--solar-unit);
         }
 
         .info ::slotted([slot='moon-info']) {

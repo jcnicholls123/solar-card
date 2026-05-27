@@ -5,8 +5,8 @@ import { DateTime } from 'luxon';
 
 import { FrontendLocaleData, TimeFormat } from '../ha';
 import { getLatLonFromEntity, hasEntityLocation } from '../ha/common/entity/has_location';
-import { Moon } from '../model/moon';
 import { Store } from '../model/store';
+import { Sun } from '../model/sun';
 import { CardArea } from '../types/card-area';
 import {
   HeaderFontConfig,
@@ -22,23 +22,23 @@ import {
   DataVisualKeys,
   LocationConfig,
   LocationConfigKeys,
-  LunarPhaseCardConfig,
-} from '../types/config/lunar-phase-card-config';
+  SolarCardConfig,
+} from '../types/config/solar-card-config';
 import { FrontendLocaleDataExtended, LatLon } from '../types/config/types';
-import './components/moon-image';
-import '../shared/moon-clock-time';
+import './components/weather-image';
+import '../shared/sun-clock-time';
 import { migrateConfig } from '../types/utils';
 import { orderProperties } from '../utils/order-properties';
-import { LunarBaseElement } from './base-element';
+import { SolarBaseElement } from './base-element';
 
-export class LunarBaseCard extends LunarBaseElement {
+export class SolarBaseCard extends SolarBaseElement {
   @property({ attribute: false }) protected store!: Store;
-  @property({ attribute: false }) protected moon!: Moon;
-  @state() protected config!: LunarPhaseCardConfig;
+  @property({ attribute: false }) protected moon!: Sun;
+  @state() protected config!: SolarCardConfig;
   @property({ attribute: 'south', type: Boolean, reflect: true }) public south = false;
   protected _cardArea?: CardArea;
 
-  setConfig(config: LunarPhaseCardConfig): void {
+  setConfig(config: SolarCardConfig): void {
     this.config = {
       ...migrateConfig(config),
     };
@@ -139,16 +139,16 @@ export class LunarBaseCard extends LunarBaseElement {
     return pick(this.config.font_config || {}, [...LabelFontConfigKeys]);
   }
 
-  get _configGraph(): LunarPhaseCardConfig['graph_chart_config'] {
+  get _configGraph(): SolarCardConfig['graph_chart_config'] {
     return this.config.graph_chart_config || {};
   }
 
-  public getOrderedConfigFields(): LunarPhaseCardConfig {
+  public getOrderedConfigFields(): SolarCardConfig {
     if (!this.config) {
-      return {} as LunarPhaseCardConfig;
+      return {} as SolarCardConfig;
     }
     const orderedConfig = orderProperties(this.config, [...ConfigFieldOrder]);
-    return orderedConfig as LunarPhaseCardConfig;
+    return orderedConfig as SolarCardConfig;
   }
 
   public getCardSize(): number | Promise<number> {

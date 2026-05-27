@@ -1,5 +1,5 @@
 import { LocalizeFunc } from '../../../ha';
-import { AppearanceLayoutConfig, COMPACT_MODE, MOON_POSITION } from '../../../types/config/lunar-phase-card-config';
+import { AppearanceLayoutConfig, COMPACT_MODE, MOON_POSITION } from '../../../types/config/solar-card-config';
 import { computeBooleanItem, computeSelectorSchema } from './helper';
 import { HaFormBaseSchemaExtended } from './types';
 

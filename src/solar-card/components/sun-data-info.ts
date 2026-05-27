@@ -9,10 +9,10 @@ import { MoonData, MoonDataItem } from '../../types/config/chart-config';
 import { objectToChunks } from '../../utils/chunk-object';
 // eslint-disable-next-line unused-imports/no-unused-imports
 import { getObjectDifferences, logChangedValues } from '../../utils/object-differences';
-import { LunarBaseCard } from '../base-card';
+import { SolarBaseCard } from '../base-card';
 
 @customElement('solar-sun-data-info')
-export class LunarMoonDataInfo extends LunarBaseCard {
+export class SolarSunDataInfo extends SolarBaseCard {
   @property({ attribute: false }) public moonData!: MoonData;
   @property({ attribute: false }) public chunkedLimit?: number;
   @state() swiper: Swiper | null = null;
@@ -123,7 +123,7 @@ export class LunarMoonDataInfo extends LunarBaseCard {
           padding: 0;
           margin: 0;
           overflow: hidden;
-          --swiper-theme-color: var(--lpc-label-font-color, var(--primary-text-color));
+          --swiper-theme-color: var(--solar-label-font-color, var(--primary-text-color));
         }
         section {
           display: block;
@@ -184,9 +184,9 @@ export class LunarMoonDataInfo extends LunarBaseCard {
           padding-block: 3px;
           width: 100%;
           /* justify-content: space-between; */
-          color: var(--lpc-label-font-color, var(--primary-text-color));
-          font-size: var(--lpc-label-font-size, auto);
-          text-transform: var(--lpc-label-font-style, none);
+          color: var(--solar-label-font-color, var(--primary-text-color));
+          font-size: var(--solar-label-font-size, auto);
+          text-transform: var(--solar-label-font-style, none);
         }
 
         .moon-data-item:last-child {
@@ -196,15 +196,15 @@ export class LunarMoonDataInfo extends LunarBaseCard {
 
         .moon-data-item span.label {
           display: inline-flex;
-          /* color: var(--lpc-label-font-color, var(--primary-text-color));
-          font-size: var(--lpc-label-font-size, auto); */
+          /* color: var(--solar-label-font-color, var(--primary-text-color));
+          font-size: var(--solar-label-font-size, auto); */
           white-space: nowrap;
           margin-inline: 0 auto;
         }
 
         .moon-data-item .value {
           display: inline-flex;
-          /* color: var(--lpc-label-font-color, var(--primary-text-color)); */
+          /* color: var(--solar-label-font-color, var(--primary-text-color)); */
           white-space: nowrap !important;
           align-items: center;
           font-weight: 500;
@@ -220,7 +220,7 @@ export class LunarMoonDataInfo extends LunarBaseCard {
         }
         .value span.direction-arrow {
           transition: transform 0.3s ease-in-out;
-          color: var(--lpc-label-font-color, var(--secondary-text-color));
+          color: var(--solar-label-font-color, var(--secondary-text-color));
         }
       `,
     ];

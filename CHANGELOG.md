@@ -2,6 +2,17 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [0.2.0] - 2026-05-27
+
+### Changed
+
+- Renamed active internal source files and classes from lunar/moon naming to solar/sun naming.
+- Updated issue templates and local demo title for Solar Card.
+
+### Removed
+
+- Removed remaining unused legacy image assets from the source tree.
+
 ## [0.1.7] - 2026-05-27
 
 ### Changed

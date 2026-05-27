@@ -1,16 +1,16 @@
 import { HomeAssistant, LocalizeFunc } from '../ha';
 import setupTranslation from '../localize/translate';
-import { BaseEditor } from '../lunar-phase-card/editor/base-editor';
-import { LunarPhaseCard } from '../lunar-phase-card/lunar-phase-card';
-import { LunarPhaseCardConfig } from '../types/config/lunar-phase-card-config';
+import { BaseEditor } from '../solar-card/editor/base-editor';
+import { SolarCard } from '../solar-card/solar-card';
+import { SolarCardConfig } from '../types/config/solar-card-config';
 
 export class Store {
   public hass: HomeAssistant;
-  public config: LunarPhaseCardConfig;
-  public readonly card: LunarPhaseCard | BaseEditor;
+  public config: SolarCardConfig;
+  public readonly card: SolarCard | BaseEditor;
   public translate: LocalizeFunc;
 
-  constructor(hass: HomeAssistant, config: LunarPhaseCardConfig, card: LunarPhaseCard | BaseEditor) {
+  constructor(hass: HomeAssistant, config: SolarCardConfig, card: SolarCard | BaseEditor) {
     this.hass = hass;
     this.config = config;
     this.card = card;

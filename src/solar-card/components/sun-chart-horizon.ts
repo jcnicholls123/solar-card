@@ -13,22 +13,22 @@ import { html, CSSResultGroup, TemplateResult, css, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { ICON } from '../../const';
-import { MOON_RISE_ICON, MOON_SET_ICON } from '../../shared/moon-pic';
+import { MOON_RISE_ICON, MOON_SET_ICON } from '../../shared/sun-icons';
 import { CardArea } from '../../types/card-area';
 import { ChartColors } from '../../types/config/chart-config';
 import { CHART_FILL_COLORS } from '../../types/config/graph-config';
-import { LunarBaseCard } from '../base-card';
-import { LunarPhaseCard } from '../lunar-phase-card';
+import { SolarBaseCard } from '../base-card';
+import { SolarCard } from '../solar-card';
 
 const HOVER_TIMEOUT = 150;
 
 @customElement('solar-sun-chart-horizon')
-export class LunarMoonChartHorizon extends LunarBaseCard {
+export class SolarSunChartHorizon extends SolarBaseCard {
   constructor() {
     super(CardArea.HORIZON);
   }
   @property({ attribute: false }) public cardWidth!: number;
-  @state() private card!: LunarPhaseCard;
+  @state() private card!: SolarCard;
   @state() private _chart!: Chart;
   @state() private moreInfo: boolean = false;
   @state() private hoverOnChart: boolean = false;
@@ -66,9 +66,9 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
     return {
       primaryTextColor: property('--solar-card-shell-label-font-color') || property('--primary-text-color'),
       secondaryTextColor: property('--secondary-text-color'),
-      fillColor: property('--lunar-fill-color'),
-      fillBelowColor: property('--lunar-fill-bellow-color'),
-      fillBelowLineColor: property('--lunar-fill-line-bellow-color'),
+      fillColor: property('--solar-fill-color'),
+      fillBelowColor: property('--solar-fill-bellow-color'),
+      fillBelowLineColor: property('--solar-fill-line-bellow-color'),
       defaultPrimaryColor: property('--primary-color'),
       defaultAccentColor: property('--accent-color'),
     };
@@ -162,7 +162,7 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
     ctx.addEventListener('touchend', this._onChartTouchEnd.bind(this));
   }
   protected render(): TemplateResult {
-    this.card = this.store.card as LunarPhaseCard;
+    this.card = this.store.card as SolarCard;
     let height = this.cardWidth * 0.5 - 43;
     height = this._configAppearance?.hide_buttons ? height : height - 43;
     this.cardHeight = height;
@@ -667,9 +667,9 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
     const styles: Record<string, string> = {};
     Object.entries(fillColors).forEach(([key, value]) => {
       if (key === 'color') {
-        styles[`--lunar-fill-color`] = value;
+        styles[`--solar-fill-color`] = value;
       } else {
-        styles[`--lunar-fill-${key}-color`] = value;
+        styles[`--solar-fill-${key}-color`] = value;
       }
     });
     Object.entries(styles).forEach(([key, value]) => {
@@ -750,6 +750,6 @@ export class LunarMoonChartHorizon extends LunarBaseCard {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'solar-sun-chart-horizon': LunarMoonChartHorizon;
+    'solar-sun-chart-horizon': SolarSunChartHorizon;
   }
 }

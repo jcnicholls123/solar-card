@@ -8,7 +8,7 @@ import { useAmPm } from '../utils/helpers';
 const INTERVAL = 1000;
 
 @customElement('solar-sun-clock-time')
-export class LunarMoonClockTime extends LitElement {
+export class SolarSunClockTime extends LitElement {
   @property({ attribute: false }) public hass?: HomeAssistant;
   @property({ attribute: false }) public configLocale?: FrontendLocaleData;
 
@@ -114,6 +114,6 @@ export class LunarMoonClockTime extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'solar-sun-clock-time': LunarMoonClockTime;
+    'solar-sun-clock-time': SolarSunClockTime;
   }
 }

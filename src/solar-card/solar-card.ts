@@ -4,45 +4,45 @@ import { choose } from 'lit/directives/choose.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { MoonState, SECTION } from '../const';
+import { CardState, SECTION } from '../const';
 import './components/card';
-import './components/moon-compact-view';
-import './components/moon-base';
-import './components/moon-data-info';
-import './components/moon-chart-dynamic';
-import './components/moon-chart-horizon';
-import './components/lunar-phase-header';
-import '../shared/lunar-star-particles';
+import './components/sun-compact-view';
+import './components/sun-base';
+import './components/sun-data-info';
+import './components/sun-chart-dynamic';
+import './components/sun-chart-horizon';
+import './components/solar-card-header';
+import '../shared/solar-star-particles';
 import { HomeAssistant, LovelaceCardEditor } from '../ha';
-import { Moon } from '../model/moon';
 import { Store } from '../model/store';
+import { Sun } from '../model/sun';
 import { MoonData } from '../types/config/chart-config';
 import { CSS_FONT_SIZE } from '../types/config/font-config';
-import { LunarPhaseCardConfig } from '../types/config/lunar-phase-card-config';
+import { SolarCardConfig } from '../types/config/solar-card-config';
 import { computeCssColor } from '../utils/compute-color';
 import { computeStubConfig } from '../utils/compute-stub-config';
 import { debounce } from '../utils/debounce';
 import { applyTheme } from '../utils/ha-helper';
-import { LunarBaseCard } from './base-card';
-import { LUNAR_PHASE_CARD_EDITOR_NAME, LUNAR_PHASE_CARD_NAME } from './const';
+import { SolarBaseCard } from './base-card';
+import { SOLAR_CARD_EDITOR_NAME, SOLAR_CARD_NAME } from './const';
 import { DEFAULT_BG_URL } from './css/card-styles';
 
-@customElement(LUNAR_PHASE_CARD_NAME)
-export class LunarPhaseCard extends LunarBaseCard {
+@customElement(SOLAR_CARD_NAME)
+export class SolarCard extends SolarBaseCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
-    await import('./editor/lunar-phase-card-editor');
-    return document.createElement(LUNAR_PHASE_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    await import('./editor/solar-card-editor');
+    return document.createElement(SOLAR_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<LunarPhaseCardConfig> {
+  public static async getStubConfig(hass: HomeAssistant): Promise<SolarCardConfig> {
     const initConfig = computeStubConfig(hass);
     return {
-      type: `custom:${LUNAR_PHASE_CARD_NAME}`,
+      type: `custom:${SOLAR_CARD_NAME}`,
       ...initConfig,
     };
   }
 
-  @state() private _state: MoonState = MoonState.READY;
+  @state() private _state: CardState = CardState.READY;
   @state() private _activePage: SECTION = SECTION.BASE;
   @state() private _cardWidth = 0;
   @state() private _cardHeight = 0;
@@ -51,7 +51,7 @@ export class LunarPhaseCard extends LunarBaseCard {
 
   private _resizeObserver?: ResizeObserver;
 
-  public setConfig(config: LunarPhaseCardConfig): void {
+  public setConfig(config: SolarCardConfig): void {
     super.setConfig(config);
     this._cardReady = false;
     this._activePage = this._normalizeSection(this.config?.default_section);
@@ -60,7 +60,7 @@ export class LunarPhaseCard extends LunarBaseCard {
 
   public connectedCallback(): void {
     super.connectedCallback();
-    window.SolarCard = this as LunarPhaseCard;
+    window.SolarCard = this as SolarCard;
     this.updateComplete.then(() => this._attachObserver());
   }
 
@@ -145,7 +145,7 @@ export class LunarPhaseCard extends LunarBaseCard {
           .appearance=${appearance}
           .calendarPopup=${false}
           .activePage=${this._activePage}
-          .changingContent=${this._state === MoonState.CONTENT_CHANGING}
+          .changingContent=${this._state === CardState.CONTENT_CHANGING}
         >
           ${choose(this._activePage, [
             [SECTION.BASE, () => this._renderBaseSection()],
@@ -243,7 +243,7 @@ export class LunarPhaseCard extends LunarBaseCard {
         .hideButtons=${appearance.hide_buttons}
         .store=${this.store}
         .config=${this.config}
-        ._buttonDisabled=${this._state === MoonState.CONTENT_CHANGING}
+        ._buttonDisabled=${this._state === CardState.CONTENT_CHANGING}
         @change-section=${this._handleChangeSection.bind(this)}
       ></solar-card-header>
     `;
@@ -277,7 +277,7 @@ export class LunarPhaseCard extends LunarBaseCard {
       locale: this._configLocale,
       daylightHours: this._getDaylightHoursSensorValue(),
     };
-    this.moon = new Moon(initData);
+    this.moon = new Sun(initData);
   }
 
   private _getDaylightHoursSensorValue(): number | undefined {
@@ -293,10 +293,10 @@ export class LunarPhaseCard extends LunarBaseCard {
   private _handleChangeSection(ev: CustomEvent) {
     ev.stopPropagation();
     const section = ev.detail.section;
-    this._state = MoonState.CONTENT_CHANGING;
+    this._state = CardState.CONTENT_CHANGING;
     this._activePage = this._normalizeSection(section);
     setTimeout(() => {
-      this._state = MoonState.READY;
+      this._state = CardState.READY;
     }, 500);
   }
 
@@ -318,16 +318,16 @@ export class LunarPhaseCard extends LunarBaseCard {
     const styles: Record<string, string> = {};
     const bg = appearance?.custom_background;
     if (bg && appearance.hide_background !== true && !this._isLegacyMoonBackground(bg)) {
-      styles['--lpc-bg-image'] = `url(${bg})`;
+      styles['--solar-bg-image'] = `url(${bg})`;
     } else if (appearance.hide_background !== true) {
-      styles['--lpc-bg-image'] = this._weatherBackground();
+      styles['--solar-bg-image'] = this._weatherBackground();
     }
     // header styles
     const { _configHeaderStyles, _configLabelStyles } = this;
     Object.entries({ ..._configHeaderStyles, ..._configLabelStyles }).forEach(([key, value]) => {
       // only set style if value is valid, not undefined, not empty, and not 'auto' or 'none'
       if (Boolean(value !== undefined && value !== '' && !['auto', 'none'].includes(value as string))) {
-        styles[`--lpc-${key.replace(/_/g, '-')}`] = key.includes('font_size')
+        styles[`--solar-${key.replace(/_/g, '-')}`] = key.includes('font_size')
           ? CSS_FONT_SIZE[value] || value
           : key.includes('font_color')
             ? computeCssColor(value)
@@ -409,8 +409,8 @@ export class LunarPhaseCard extends LunarBaseCard {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          background-image: var(--lpc-bg-image);
-          --primary-text-color: var(--lpc-label-font-color, #17324a);
+          background-image: var(--solar-bg-image);
+          --primary-text-color: var(--solar-label-font-color, #17324a);
           --secondary-text-color: rgba(23, 50, 74, 0.72);
           color: var(--primary-text-color);
           text-shadow: 0 1px 2px rgba(255, 255, 255, 0.52);
@@ -423,6 +423,6 @@ export class LunarPhaseCard extends LunarBaseCard {
 
 declare global {
   interface Window {
-    SolarCard: LunarPhaseCard;
+    SolarCard: SolarCard;
   }
 }

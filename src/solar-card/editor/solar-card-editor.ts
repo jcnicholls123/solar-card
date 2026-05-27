@@ -12,11 +12,11 @@ import './components/form-editor';
 import './shared/nav-bar';
 import { Store } from '../../model/store';
 import { loadHaComponents, refactorEditDialog } from '../../utils/loader';
-import { LUNAR_PHASE_CARD_EDITOR_NAME } from '../const';
+import { SOLAR_CARD_EDITOR_NAME } from '../const';
 import { BaseEditor } from './base-editor';
 import { EditorArea } from './editor-area-config';
 
-export class LunarPhaseCardEditor extends BaseEditor implements LovelaceCardEditor {
+export class SolarCardEditor extends BaseEditor implements LovelaceCardEditor {
   @property({ attribute: false }) public _hass!: HomeAssistant;
 
   @state() private editorArea: EditorArea = EditorArea.DEFAULT;
@@ -99,10 +99,10 @@ export class LunarPhaseCardEditor extends BaseEditor implements LovelaceCardEdit
   }
 }
 
-customElements.define(LUNAR_PHASE_CARD_EDITOR_NAME, LunarPhaseCardEditor);
+customElements.define(SOLAR_CARD_EDITOR_NAME, SolarCardEditor);
 
 declare global {
   interface Window {
-    SolarEditor: LunarPhaseCardEditor;
+    SolarEditor: SolarCardEditor;
   }
 }

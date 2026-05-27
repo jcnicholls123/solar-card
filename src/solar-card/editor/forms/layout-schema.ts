@@ -15,7 +15,7 @@ import {
   GraphConfigNumberKeys,
   GraphConfigDropdownKeys,
 } from '../../../types/config/graph-config';
-import { HIDDEN_ITEMS, HiddenItem, DataVisualConfig } from '../../../types/config/lunar-phase-card-config';
+import { HIDDEN_ITEMS, HiddenItem, DataVisualConfig } from '../../../types/config/solar-card-config';
 import { TITLE_PATH } from '../translate-const';
 import { computeBooleanItem, computeSelectorSchema } from './helper';
 import { HaFormBaseSchemaExtended } from './types';

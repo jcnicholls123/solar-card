@@ -1,79 +1,64 @@
-name: 🐞 Bug report
-description: File a bug report.
+name: Bug report
+description: File a Solar Card bug report.
 title: '[Bug]: '
 labels:
   - bug
-assignees:
-  - ngocjohn
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report! 🛠️ Please provide the details below to help us address the issue.
+        Thanks for taking the time to fill out this Solar Card bug report. Please provide the details below.
   - type: input
     id: summary
     attributes:
-      label: Short summary 📝
-      description: A short summary of the bug
-      placeholder: e.g., The application crashes when I click on 'Submit'
+      label: Short summary
+      description: A short summary of the bug.
+      placeholder: The card shows the wrong weather animation.
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
-      label: Detailed description 📋
-      description: A detailed description of the bug
-      placeholder: Describe the bug in detail, including steps to reproduce, expected behavior, and actual behavior.
+      label: Detailed description
+      description: Include steps to reproduce, expected behavior, and actual behavior.
+      placeholder: Describe the bug in detail.
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: version
     attributes:
-      label: Version 📦
-      description: The version of the application where the bug was found
-      options:
-        - v1.12.0
-        - v1.11.0
-        - v1.10.1
-        - v1.10.0
-        - v1.9.0
-        - v1.8.1
-        - v1.8.0
-        - v1.7.2
-        - v1.7.1
-        - v1.7.0
+      label: Version
+      description: The Solar Card version where the bug appears.
+      placeholder: v0.2.0
     validations:
       required: true
   - type: textarea
+    id: configuration
     attributes:
-      label: Card Configuration
-      description: Your card YAML configuration
+      label: Card configuration
+      description: Your card YAML configuration.
       render: yaml
       placeholder: |
-        type: custom:lunar-phase-card
-        entity: ""
-        use_default: true
-        use_custom: false
-        use_entity: false
-        show_background: true
-        selected_language: en
-        compact_view: false
-        # Your configuration here
+        type: custom:solar-card
+        location_source: default
+        language: en
+        daylight_hours_entity: sensor.daylight_hours
+        weather_entity: weather.home
     validations:
       required: true
   - type: input
     id: environment
     attributes:
-      label: Environment 🌐
-      description: The environment in which the bug was found (e.g., browser, OS)
-      placeholder: e.g., Chrome on Windows 10
+      label: Environment
+      description: Browser, operating system, and Home Assistant version.
+      placeholder: Chrome on Windows 11, Home Assistant 2026.5
     validations:
       required: false
   - type: textarea
     id: logs
     attributes:
-      label: Logs and screenshots 📂
-      description: Any relevant logs or screenshots that can help identify the issue
-      placeholder: Paste logs or upload screenshots
+      label: Logs and screenshots
+      description: Any relevant logs or screenshots that can help identify the issue.
+      placeholder: Paste logs or upload screenshots.
     validations:
       required: false

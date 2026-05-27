@@ -7,7 +7,7 @@ import {
   AppearanceLayoutKeys,
   DataVisualConfig,
   DataVisualKeys,
-} from '../../../types/config/lunar-phase-card-config';
+} from '../../../types/config/solar-card-config';
 import { BaseEditor } from '../base-editor';
 import { EditorArea } from '../editor-area-config';
 import { APPEARANCE_FORM_SCHEMA } from '../forms';

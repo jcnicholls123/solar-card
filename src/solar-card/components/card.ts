@@ -3,11 +3,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { SECTION } from '../../const';
-import { CardAppearance } from '../../types/config/lunar-phase-card-config';
-import { LunarBaseCard } from '../base-card';
+import { CardAppearance } from '../../types/config/solar-card-config';
+import { SolarBaseCard } from '../base-card';
 
 @customElement('solar-card-shell')
-export class Card extends LunarBaseCard {
+export class Card extends SolarBaseCard {
   @property({ type: Number }) public cardWidth = 0;
   @property({ type: Number }) public cardHeight = 0;
   @property({ type: Boolean }) public calendarPopup = false;
@@ -27,7 +27,7 @@ export class Card extends LunarBaseCard {
       const idealContentHeight = this.cardWidth * 0.5 - (hasTopMargin ? 44 : 0);
       const minHeight = Math.max(180, idealContentHeight);
       this._contentMinHeight = `${minHeight}px`;
-      this.style.setProperty('--lpc-content-min-height', this._contentMinHeight);
+      this.style.setProperty('--solar-content-min-height', this._contentMinHeight);
     }
   }
 

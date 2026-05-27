@@ -14,7 +14,7 @@ import { version } from '../package.json';
 
 export const CARD_VERSION = `v${version}`;
 
-export const enum MoonState {
+export const enum CardState {
   READY = 'ready',
   LOADING = 'loading',
   CONTENT_CHANGING = 'content-changing',
@@ -47,9 +47,6 @@ export const enum CHART_COLOR {
   PRIMARY_TEXT = '#e1e1e1',
   SUN_LINE_BOLD = '#f4da95',
   SUN_LINE_LIGHT = '#b4ae95',
-  MOON_LINE_BOLD = '#fefffeaa',
-  MOON_LINE_LIGHT = '#b9c0ca',
-  MOON_SHADOW = '#161616',
   TOOLTIP_BACKGROUND = '#1f1f1f',
 }
 

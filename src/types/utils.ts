@@ -1,9 +1,9 @@
 import { isEmpty } from 'es-toolkit/compat';
 
 import { getObjectDifferences } from '../utils/object-differences';
-import { LunarPhaseCardConfig } from './config/lunar-phase-card-config';
+import { SolarCardConfig } from './config/solar-card-config';
 
-export const migrateConfig = (config: LunarPhaseCardConfig): LunarPhaseCardConfig => {
+export const migrateConfig = (config: SolarCardConfig): SolarCardConfig => {
   if (!cardNeedsMigration(config)) {
     return config;
   }
@@ -68,7 +68,7 @@ export const migrateConfig = (config: LunarPhaseCardConfig): LunarPhaseCardConfi
     delete (newConfig as any).location;
   }
 
-  const changedValues = getObjectDifferences(config, newConfig as LunarPhaseCardConfig);
+  const changedValues = getObjectDifferences(config, newConfig as SolarCardConfig);
   if (changedValues && Object.keys(changedValues).length > 0) {
     console.groupCollapsed('Migrated config from old to new format:');
     Object.entries(changedValues).forEach(([k, v]) => {
@@ -84,10 +84,10 @@ export const migrateConfig = (config: LunarPhaseCardConfig): LunarPhaseCardConfi
     });
     console.groupEnd();
   }
-  return newConfig as LunarPhaseCardConfig;
+  return newConfig as SolarCardConfig;
 };
 
-export const cardNeedsMigration = (config: LunarPhaseCardConfig): boolean => {
+export const cardNeedsMigration = (config: SolarCardConfig): boolean => {
   return Boolean(
     config.use_custom ||
       config.use_default ||
@@ -101,7 +101,7 @@ export const cardNeedsMigration = (config: LunarPhaseCardConfig): boolean => {
   );
 };
 
-export const cleanConfig = (config: LunarPhaseCardConfig): LunarPhaseCardConfig => {
+export const cleanConfig = (config: SolarCardConfig): SolarCardConfig => {
   // deep clone config to avoid mutating the original object
   const cleanedConfig = JSON.parse(JSON.stringify(config));
   // find the difference between config and cleanedConfig

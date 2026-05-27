@@ -6,8 +6,8 @@ import { getLatLonFromEntity, hasEntityLocation } from '../../../ha/common/entit
 import {
   LocationConfig,
   LocationConfigKeys,
-  LunarPhaseCardConfig,
-} from '../../../types/config/lunar-phase-card-config';
+  SolarCardConfig,
+} from '../../../types/config/solar-card-config';
 import { getObjectDifferences, logChangedValues } from '../../../utils/object-differences';
 import { BaseEditor } from '../base-editor';
 import { EditorArea } from '../editor-area-config';
@@ -96,7 +96,7 @@ export class LocationArea extends BaseEditor {
       return;
     }
 
-    const changedMap = new Map(Object.entries(changedValues)) as Map<keyof LunarPhaseCardConfig, [old: any, new: any]>;
+    const changedMap = new Map(Object.entries(changedValues)) as Map<keyof SolarCardConfig, [old: any, new: any]>;
 
     const hasLocationSourceChanged =
       changedMap.has('location_source') &&
@@ -104,7 +104,7 @@ export class LocationArea extends BaseEditor {
 
     const hasEntityChanged = changedMap.has('entity') && changedMap.get('entity')![0] !== changedMap.get('entity')![1];
 
-    const updates: Partial<LunarPhaseCardConfig> = {};
+    const updates: Partial<SolarCardConfig> = {};
     // handle location object if present
     if (incoming.location) {
       updates.latitude = incoming.location.latitude;
@@ -165,7 +165,7 @@ export class LocationArea extends BaseEditor {
       console.group('Config changes in', this._editorArea);
       logChangedValues(changeValues, true);
       console.groupEnd();
-      this.configChanged(newConfig as Partial<LunarPhaseCardConfig>);
+      this.configChanged(newConfig as Partial<SolarCardConfig>);
       this.requestUpdate();
     }
   }

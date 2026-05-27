@@ -1,13 +1,13 @@
 import { html, TemplateResult, CSSResultGroup, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import './moon-data-info';
+import './sun-data-info';
 import { CardArea } from '../../types/card-area';
 import { MoonData } from '../../types/config/chart-config';
-import { LunarBaseCard } from '../base-card';
+import { SolarBaseCard } from '../base-card';
 
 @customElement('solar-sun-compact-view')
-export class LunarMoonCompactView extends LunarBaseCard {
+export class SolarSunCompactView extends SolarBaseCard {
   @property({ attribute: false }) public moonData!: MoonData;
   @property({ attribute: false }) public moonImage!: TemplateResult;
   @property({ attribute: false }) public header!: TemplateResult;
@@ -202,7 +202,7 @@ export class LunarMoonCompactView extends LunarBaseCard {
           display: flex;
           width: 100%;
           flex-direction: column;
-          font-size: var(--lpc-label-font-size, var(--ha-font-size-m));
+          font-size: var(--solar-label-font-size, var(--ha-font-size-m));
           color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
           text-transform: var(--solar-card-shell-label-text-transform, none);
           align-items: center;
