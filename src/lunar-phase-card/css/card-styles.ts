@@ -1,11 +1,10 @@
 import { css, unsafeCSS } from 'lit';
 
-import { BLUE_BG } from '../../const';
 import editorStyles from './editor.css';
 const DEFAULT_BG = {
   url: `
     :host {
-      --lpc-bg-image: url(${BLUE_BG});
+      --lpc-bg-image: linear-gradient(180deg, #3bb0ff 0%, #8ed8ff 45%, #ffe29a 100%);
     }
   `,
 };

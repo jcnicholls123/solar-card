@@ -367,7 +367,7 @@ export class LunarPhaseCard extends LunarBaseCard {
     const appearance = this._configAppearance;
     const styles: Record<string, string> = {};
     const bg = appearance?.custom_background;
-    if (bg && appearance.hide_background !== true) {
+    if (bg && appearance.hide_background !== true && !this._isLegacyMoonBackground(bg)) {
       styles['--lpc-bg-image'] = `url(${bg})`;
     } else if (appearance.hide_background !== true) {
       styles['--lpc-bg-image'] = this._weatherBackground();
@@ -409,6 +409,10 @@ export class LunarPhaseCard extends LunarBaseCard {
       'windy-variant': 'linear-gradient(180deg, #6da9d6 0%, #b7d4e7 48%, #edf6fa 100%)',
     };
     return backgroundMap[state] || backgroundMap.sunny;
+  }
+
+  private _isLegacyMoonBackground(background: string): boolean {
+    return /moon_bg_|lunar-phase-card|\/background\/moon/i.test(background);
   }
 
   private _weatherState(): string {

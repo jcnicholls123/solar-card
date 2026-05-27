@@ -525,11 +525,23 @@ export class Moon {
 
   private _getSunTimes(date: Date): any {
     const times = (SunCalc as any).getSunTimes(date, this.location.latitude, this.location.longitude);
+    const timeValue = (time: any): Date | undefined => {
+      if (!time) return undefined;
+      return time instanceof Date ? time : time.value;
+    };
     return {
       ...times,
-      rise: times.rise || times.sunrise,
-      set: times.set || times.sunset,
-      highest: times.highest || times.solarNoon,
+      rise: timeValue(times.rise || times.sunrise || times.sunriseStart),
+      set: timeValue(times.set || times.sunset || times.sunsetEnd),
+      highest: timeValue(times.highest || times.solarNoon),
+      solarNoon: timeValue(times.solarNoon),
+      nadir: timeValue(times.nadir),
+      goldenHour: timeValue(times.goldenHour || times.goldenHourDuskStart),
+      goldenHourEnd: timeValue(times.goldenHourEnd || times.goldenHourDawnEnd),
+      goldenHourDawnStart: timeValue(times.goldenHourDawnStart),
+      goldenHourDawnEnd: timeValue(times.goldenHourDawnEnd),
+      goldenHourDuskStart: timeValue(times.goldenHourDuskStart),
+      goldenHourDuskEnd: timeValue(times.goldenHourDuskEnd),
     };
   }
 
