@@ -8,6 +8,7 @@ import { MoonImage } from '../../types/config/chart-config';
 @customElement('lunar-moon-image')
 export class LunarMoonImage extends LitElement {
   @property({ attribute: false }) public imageData!: MoonImage;
+  @property({ type: String }) public weatherState = 'sunny';
 
   @query('.moon-image img') private _imgElement!: HTMLImageElement;
 
@@ -78,7 +79,6 @@ export class LunarMoonImage extends LitElement {
     }
 
     const showOverlay = this._hover || this._focused;
-    const imageUrl = this.imageData.moonPic;
     const lightFraction = this.imageData.fraction && this.imageData.fraction >= 60 ? true : false;
     return html`
       <div
@@ -87,10 +87,33 @@ export class LunarMoonImage extends LitElement {
           hovered: showOverlay,
           'light-fraction': lightFraction,
         })}
+        data-weather=${this.weatherState || 'sunny'}
       >
-        <img src="${imageUrl}" ?southern=${this.imageData.southernHemisphere} />
+        <ha-icon .icon=${this._weatherIcon(this.weatherState)}></ha-icon>
       </div>
     `;
+  }
+
+  private _weatherIcon(state: string): string {
+    const iconMap: Record<string, string> = {
+      clear: 'mdi:weather-sunny',
+      'clear-night': 'mdi:weather-night',
+      cloudy: 'mdi:weather-cloudy',
+      exceptional: 'mdi:weather-sunny-alert',
+      fog: 'mdi:weather-fog',
+      hail: 'mdi:weather-hail',
+      lightning: 'mdi:weather-lightning',
+      'lightning-rainy': 'mdi:weather-lightning-rainy',
+      partlycloudy: 'mdi:weather-partly-cloudy',
+      pouring: 'mdi:weather-pouring',
+      rainy: 'mdi:weather-rainy',
+      snowy: 'mdi:weather-snowy',
+      'snowy-rainy': 'mdi:weather-snowy-rainy',
+      sunny: 'mdi:weather-sunny',
+      windy: 'mdi:weather-windy',
+      'windy-variant': 'mdi:weather-windy-variant',
+    };
+    return iconMap[state] || iconMap.sunny;
   }
 
   static get styles() {
@@ -100,29 +123,55 @@ export class LunarMoonImage extends LitElement {
       }
       .moon-image {
         display: flex;
-        /* min-width: 100px;
-        min-height: 100px; */
+        align-items: center;
+        justify-content: center;
         transition: transform 0.5s;
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
         aspect-ratio: 1;
         flex-shrink: 0;
-        /* max-width: 150px; */
         position: relative;
       }
 
-      .moon-image img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        transform: rotate(0deg);
-        filter: saturate(1.15) brightness(1.05) drop-shadow(0 0 14px rgba(255, 190, 61, 0.55));
+      .moon-image ha-icon {
+        width: 86%;
+        height: 86%;
+        color: #f7b731;
+        filter: drop-shadow(0 6px 16px rgba(118, 85, 21, 0.25)) drop-shadow(0 0 18px rgba(255, 215, 87, 0.65));
       }
 
-      .moon-image img[southern] {
-        transform: scaleX(-1) scaleY(-1);
-        transition: none;
+      .moon-image[data-weather='clear-night'] ha-icon {
+        color: #f5f0c8;
+        filter: drop-shadow(0 6px 16px rgba(8, 22, 48, 0.45)) drop-shadow(0 0 18px rgba(205, 224, 255, 0.65));
+      }
+
+      .moon-image[data-weather='cloudy'] ha-icon,
+      .moon-image[data-weather='fog'] ha-icon,
+      .moon-image[data-weather='partlycloudy'] ha-icon,
+      .moon-image[data-weather='windy'] ha-icon,
+      .moon-image[data-weather='windy-variant'] ha-icon {
+        color: #ffffff;
+        filter: drop-shadow(0 7px 16px rgba(50, 82, 112, 0.3)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.72));
+      }
+
+      .moon-image[data-weather='rainy'] ha-icon,
+      .moon-image[data-weather='pouring'] ha-icon,
+      .moon-image[data-weather='snowy-rainy'] ha-icon {
+        color: #f4fbff;
+        filter: drop-shadow(0 7px 16px rgba(29, 59, 88, 0.38)) drop-shadow(0 0 10px rgba(211, 236, 255, 0.75));
+      }
+
+      .moon-image[data-weather='lightning'] ha-icon,
+      .moon-image[data-weather='lightning-rainy'] ha-icon {
+        color: #ffe66d;
+        filter: drop-shadow(0 7px 16px rgba(30, 31, 70, 0.45)) drop-shadow(0 0 16px rgba(255, 232, 106, 0.78));
+      }
+
+      .moon-image[data-weather='snowy'] ha-icon,
+      .moon-image[data-weather='hail'] ha-icon {
+        color: #ffffff;
+        filter: drop-shadow(0 7px 16px rgba(70, 103, 133, 0.3)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.82));
       }
       .moon-image.hovered img {
         filter: saturate(1.25) brightness(1.15) drop-shadow(0 0 22px rgba(255, 190, 61, 0.75));

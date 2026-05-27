@@ -166,7 +166,7 @@ export class LunarPhaseCard extends LunarBaseCard {
           ])}
         </lunar-card>
       </ha-card>
-      ${appearance.hide_starfield ? nothing : html`<lunar-star-particles></lunar-star-particles>`}
+      ${this._showStarfield() ? html`<lunar-star-particles></lunar-star-particles>` : nothing}
     `;
   }
 
@@ -313,6 +313,16 @@ export class LunarPhaseCard extends LunarBaseCard {
     `;
   }
 
+  public renderMoonImage(): TemplateResult {
+    return html`
+      <lunar-moon-image
+        slot="moon-pic"
+        .imageData=${this.moon.moonImage}
+        .weatherState=${this._weatherState()}
+      ></lunar-moon-image>
+    `;
+  }
+
   public _resetSelectedDate(): void {
     if (this._selectedDate !== undefined) {
       this._selectedDate = undefined;
@@ -415,6 +425,10 @@ export class LunarPhaseCard extends LunarBaseCard {
     return /moon_bg_|lunar-phase-card|\/background\/moon/i.test(background);
   }
 
+  private _showStarfield(): boolean {
+    return this._configAppearance.hide_starfield !== true && this._weatherState() === 'clear-night';
+  }
+
   private _weatherState(): string {
     const weatherEntity = this.config?.weather_entity || Object.keys(this.hass.states).find((entityId) => entityId.startsWith('weather.'));
     const state = weatherEntity ? this.hass.states[weatherEntity]?.state : undefined;
@@ -456,7 +470,10 @@ export class LunarPhaseCard extends LunarBaseCard {
           background-position: center;
           background-repeat: no-repeat;
           background-image: var(--lpc-bg-image);
-          --primary-text-color: var(--lpc-label-font-color, #e1e1e1);
+          --primary-text-color: var(--lpc-label-font-color, #17324a);
+          --secondary-text-color: rgba(23, 50, 74, 0.72);
+          color: var(--primary-text-color);
+          text-shadow: 0 1px 2px rgba(255, 255, 255, 0.52);
           box-shadow: none !important;
         }
       `,
