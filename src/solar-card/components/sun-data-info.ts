@@ -77,13 +77,16 @@ export class SolarSunDataInfo extends SolarBaseCard {
       <div class="moon-data-item">
         <span class="label">${label}</span>
         <div class="value">
-          ${secondValue && key !== 'direction' ? html`<span>(${secondValue})</span>` : nothing} ${value}
           ${key === 'direction' && secondValue
-            ? html`<span>(${secondValue})</span>
+            ? html`<span class="primary-value">${value}</span>
+                <span>(${secondValue})</span>
                 <span class="direction-arrow" style="transform: rotate(${parseInt(value, 0)}deg);">
                   <ha-icon icon="mdi:arrow-up-thin"></ha-icon>
                 </span>`
-            : nothing}
+            : html`
+                ${secondValue ? html`<span class="secondary-value">(${secondValue})</span>` : nothing}
+                <span class="primary-value">${value}</span>
+              `}
         </div>
       </div>
     `;
@@ -180,7 +183,7 @@ export class SolarSunDataInfo extends SolarBaseCard {
 
         .moon-data-item {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) max-content;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
           align-items: center;
           column-gap: 8px;
           border-bottom: 0.5px solid rgba(from var(--secondary-text-color) r g b / 0.2);
@@ -204,24 +207,43 @@ export class SolarSunDataInfo extends SolarBaseCard {
         }
 
         .moon-data-item .value {
-          display: inline-flex;
-          white-space: nowrap !important;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) max-content;
           align-items: center;
           justify-self: end;
+          width: 100%;
+          min-width: 0;
           text-align: right;
           font-weight: 500;
           gap: 4px;
         }
 
         .value span {
-          /* font-size: var(--ha-font-size-s, 12px); */
           font-weight: var(--ha-font-weight-normal, 400);
           line-height: 1;
           place-self: auto;
         }
+
+        .value .secondary-value {
+          min-width: 0;
+          white-space: normal;
+          line-height: 1.15;
+        }
+
+        .value .primary-value {
+          justify-self: end;
+          white-space: nowrap;
+          font-weight: 500;
+        }
         .value span.direction-arrow {
           transition: transform 0.3s ease-in-out;
           color: var(--solar-label-font-color, var(--secondary-text-color));
+        }
+
+        .value:has(.direction-arrow) {
+          display: inline-flex;
+          width: auto;
+          white-space: nowrap;
         }
       `,
     ];

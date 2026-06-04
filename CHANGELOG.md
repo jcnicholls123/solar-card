@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.3] - 2026-06-04
+
+### Fixed
+
+- Prevented long relative-time values from being clipped on narrow mobile cards while keeping clock times aligned.
+
 ## [1.0.2] - 2026-06-04
 
 ### Fixed
