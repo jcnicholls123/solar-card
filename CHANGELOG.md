@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.2] - 2026-06-04
+
+### Fixed
+
+- Kept long solar-event values, including morning golden hour relative times, aligned with the other rows on mobile.
+
 ## [1.0.1] - 2026-05-27
 
 ### Changed

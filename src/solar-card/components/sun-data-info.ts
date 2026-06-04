@@ -179,11 +179,14 @@ export class SolarSunDataInfo extends SolarBaseCard {
         }
 
         .moon-data-item {
-          display: inline-flex;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) max-content;
+          align-items: center;
+          column-gap: 8px;
           border-bottom: 0.5px solid rgba(from var(--secondary-text-color) r g b / 0.2);
           padding-block: 3px;
           width: 100%;
-          /* justify-content: space-between; */
+          box-sizing: border-box;
           color: var(--solar-label-font-color, var(--primary-text-color));
           font-size: var(--solar-label-font-size, auto);
           text-transform: var(--solar-label-font-style, none);
@@ -195,21 +198,19 @@ export class SolarSunDataInfo extends SolarBaseCard {
         }
 
         .moon-data-item span.label {
-          display: inline-flex;
-          /* color: var(--solar-label-font-color, var(--primary-text-color));
-          font-size: var(--solar-label-font-size, auto); */
-          white-space: nowrap;
-          margin-inline: 0 auto;
+          display: block;
+          min-width: 0;
+          line-height: 1.2;
         }
 
         .moon-data-item .value {
           display: inline-flex;
-          /* color: var(--solar-label-font-color, var(--primary-text-color)); */
           white-space: nowrap !important;
           align-items: center;
+          justify-self: end;
+          text-align: right;
           font-weight: 500;
           gap: 4px;
-          margin-inline: auto 0;
         }
 
         .value span {
