@@ -2,6 +2,12 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.6] - 2026-06-06
+
+### Fixed
+
+- Removed relative-time text from solar event rows so mobile cards always show the actual event time.
+
 ## [1.0.5] - 2026-06-06
 
 ### Fixed

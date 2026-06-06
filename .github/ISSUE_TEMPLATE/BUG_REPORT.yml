@@ -29,7 +29,7 @@ body:
     attributes:
       label: Version
       description: The Solar Card version where the bug appears.
-      placeholder: v1.0.5
+      placeholder: v1.0.6
     validations:
       required: true
   - type: textarea

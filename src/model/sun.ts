@@ -7,7 +7,7 @@ import { formatNumber } from '../ha/common/number/format_number';
 import setupTranslation from '../localize/translate';
 import { DynamicChartData, MoonData, MoonDataItem, MoonImage } from '../types/config/chart-config';
 import { SolarCardConfig } from '../types/config/solar-card-config';
-import { compareTime, convertKmToMiles, useAmPm } from '../utils/helpers';
+import { convertKmToMiles, useAmPm } from '../utils/helpers';
 
 type Location = {
   latitude: number;
@@ -126,8 +126,7 @@ export class Sun {
 
   createMoonTime = (key: string, time: number | Date): MoonDataItem => {
     const timeString = this.formatTime(time);
-    const secondValue = compareTime(new Date(time)) ? (this.computeDateTime(new Date(time)).toRelative() as string) : '';
-    return this.createItem(key, timeString, '', secondValue);
+    return this.createItem(key, timeString);
   };
 
   shortTime = (date: number | Date) =>
