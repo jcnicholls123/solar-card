@@ -2,6 +2,13 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.4] - 2026-06-06
+
+### Fixed
+
+- Reduced default mobile data rows per page to stop golden-hour rows being clipped.
+- Improved weather-state detection so rainy, stormy, snowy, foggy, and cloudy entities are preferred over sunny fallbacks.
+
 ## [1.0.3] - 2026-06-04
 
 ### Fixed

@@ -60,16 +60,18 @@ export class SolarWeatherImage extends LitElement {
   }
 
   private _weatherClass(state: string): string {
-    const normalised = (state || 'sunny').toLowerCase();
+    const normalised = (state || 'sunny').toLowerCase().trim().replace(/\s+/g, '-');
 
     if (normalised === 'clear-night') return 'is-night';
-    if (normalised.includes('lightning')) return 'is-storm';
-    if (normalised.includes('snow') || normalised === 'hail') return 'is-snow';
-    if (normalised === 'rainy' || normalised === 'pouring') return 'is-rain';
-    if (normalised === 'fog') return 'is-fog';
+    if (normalised.includes('lightning') || normalised.includes('thunder')) return 'is-storm';
+    if (normalised.includes('snow') || normalised.includes('sleet') || normalised === 'hail') return 'is-snow';
+    if (normalised.includes('rain') || normalised.includes('drizzle') || normalised.includes('shower') || normalised === 'pouring')
+      return 'is-rain';
+    if (normalised.includes('fog') || normalised.includes('mist')) return 'is-fog';
     if (normalised.includes('windy')) return 'is-wind';
-    if (normalised === 'cloudy') return 'is-cloudy';
-    if (normalised === 'partlycloudy') return 'is-partly-cloudy';
+    if (normalised.includes('cloudy') || normalised.includes('cloud')) {
+      return normalised.includes('partly') ? 'is-partly-cloudy' : 'is-cloudy';
+    }
 
     return 'is-sunny';
   }
@@ -94,7 +96,7 @@ export class SolarWeatherImage extends LitElement {
       'windy-variant': 'Windy weather',
     };
 
-    return labels[(state || 'sunny').toLowerCase()] || labels.sunny;
+    return labels[(state || 'sunny').toLowerCase().trim().replace(/\s+/g, '-')] || labels.sunny;
   }
 
   static get styles() {

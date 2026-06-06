@@ -166,7 +166,7 @@ export class SolarCard extends SolarBaseCard {
     // determine chunk limit for data info based on card width and config
     // by default for card width > 460 show 6 items per page, else undefined
     // allow config to override this value via max_data_per_page setting but only apply if card width is > 460
-    const chunkLimit = this._cardWidth > 460 ? configLayout.max_data_per_page || 6 : undefined;
+    const chunkLimit = this._cardWidth > 460 ? configLayout.max_data_per_page || 6 : configLayout.max_data_per_page || 4;
 
     return html` ${appearance.compact_view === true
       ? html` <solar-sun-compact-view
@@ -370,9 +370,35 @@ export class SolarCard extends SolarBaseCard {
   }
 
   private _weatherState(): string {
-    const weatherEntity = this.config?.weather_entity || Object.keys(this.hass.states).find((entityId) => entityId.startsWith('weather.'));
-    const state = weatherEntity ? this.hass.states[weatherEntity]?.state : undefined;
-    return state && !['unknown', 'unavailable'].includes(state) ? state.toLowerCase() : 'sunny';
+    const configuredEntity = this.config?.weather_entity;
+    if (configuredEntity) {
+      return this._normaliseWeatherState(this.hass.states[configuredEntity]?.state);
+    }
+
+    const weatherStates = Object.keys(this.hass.states)
+      .filter((entityId) => entityId.startsWith('weather.'))
+      .map((entityId) => this._normaliseWeatherState(this.hass.states[entityId]?.state))
+      .filter((state) => state !== 'sunny');
+
+    return weatherStates.find((state) => !['clear', 'exceptional'].includes(state)) || weatherStates[0] || 'sunny';
+  }
+
+  private _normaliseWeatherState(state?: string): string {
+    const value = (state || '').toLowerCase().trim().replace(/\s+/g, '-');
+    if (!value || ['unknown', 'unavailable'].includes(value)) return 'sunny';
+    if (value.includes('thunder') || value.includes('lightning')) return value.includes('rain') ? 'lightning-rainy' : 'lightning';
+    if (value.includes('pouring') || value.includes('heavy-rain')) return 'pouring';
+    if (value.includes('rain') || value.includes('drizzle') || value.includes('shower')) return 'rainy';
+    if (value.includes('sleet') || value.includes('snowy-rainy')) return 'snowy-rainy';
+    if (value.includes('snow') || value.includes('hail')) return value.includes('hail') ? 'hail' : 'snowy';
+    if (value.includes('fog') || value.includes('mist')) return 'fog';
+    if (value.includes('partly') || value.includes('partlycloudy')) return 'partlycloudy';
+    if (value.includes('cloud')) return 'cloudy';
+    if (value.includes('wind')) return value.includes('variant') ? 'windy-variant' : 'windy';
+    if (value.includes('night')) return 'clear-night';
+    if (value === 'clear') return 'clear';
+    if (value === 'sunny') return 'sunny';
+    return value;
   }
 
   static get styles(): CSSResultGroup {
