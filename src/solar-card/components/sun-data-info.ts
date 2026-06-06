@@ -84,8 +84,8 @@ export class SolarSunDataInfo extends SolarBaseCard {
                   <ha-icon icon="mdi:arrow-up-thin"></ha-icon>
                 </span>`
             : html`
-                ${secondValue ? html`<span class="secondary-value">(${secondValue})</span>` : nothing}
                 <span class="primary-value">${value}</span>
+                ${secondValue ? html`<span class="secondary-value">(${secondValue})</span>` : nothing}
               `}
         </div>
       </div>
@@ -183,7 +183,7 @@ export class SolarSunDataInfo extends SolarBaseCard {
 
         .moon-data-item {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          grid-template-columns: minmax(0, 1fr) max-content;
           align-items: center;
           column-gap: 8px;
           border-bottom: 0.5px solid rgba(from var(--secondary-text-color) r g b / 0.2);
@@ -208,14 +208,14 @@ export class SolarSunDataInfo extends SolarBaseCard {
 
         .moon-data-item .value {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) max-content;
-          align-items: center;
+          grid-template-columns: max-content;
+          grid-auto-rows: min-content;
+          align-items: end;
           justify-self: end;
-          width: 100%;
-          min-width: 0;
+          min-width: max-content;
           text-align: right;
           font-weight: 500;
-          gap: 4px;
+          gap: 2px;
         }
 
         .value span {
@@ -225,9 +225,14 @@ export class SolarSunDataInfo extends SolarBaseCard {
         }
 
         .value .secondary-value {
-          min-width: 0;
-          white-space: normal;
+          justify-self: end;
+          max-width: 12ch;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           line-height: 1.15;
+          font-size: 0.86em;
+          opacity: 0.85;
         }
 
         .value .primary-value {
