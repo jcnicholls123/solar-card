@@ -710,7 +710,7 @@ export class SolarSunChartHorizon extends SolarBaseCard {
           align-items: center;
           width: inherit;
           height: auto;
-          color: var(--solar-card-shell-label-font-color);
+          color: var(--solar-text-color, var(--solar-card-shell-label-font-color));
           padding-left: 12px;
           /* backdrop-filter: blur(4px); */
           background-color: rgba(0, 0, 0, 0.14);

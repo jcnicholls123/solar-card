@@ -440,23 +440,27 @@ export class SolarCard extends SolarBaseCard {
           background-position: center;
           background-repeat: no-repeat;
           background-image: var(--solar-bg-image);
-          --primary-text-color: var(--solar-label-font-color, #17324a);
-          --secondary-text-color: rgba(23, 50, 74, 0.72);
+          --solar-label-font-color: var(--solar-text-color, #17324a);
+          --solar-header-font-color: var(--solar-text-color, #17324a);
+          --solar-card-shell-label-font-color: var(--solar-text-color, #17324a);
+          --solar-card-shell-header-font-color: var(--solar-text-color, #17324a);
+          --primary-text-color: var(--solar-text-color, #17324a);
+          --secondary-text-color: var(--solar-secondary-text-color, rgba(23, 50, 74, 0.72));
           color: var(--primary-text-color);
-          text-shadow: 0 1px 2px rgba(255, 255, 255, 0.52);
+          text-shadow: var(--solar-text-shadow, none);
           box-shadow: none !important;
         }
 
         :host([dark-mode]) ha-card.--has-bg,
         ha-card.--has-bg.--dark-bg {
-          --solar-label-font-color: var(--solar-dark-text-color, #f2f7ff);
-          --solar-header-font-color: var(--solar-dark-text-color, #f2f7ff);
-          --solar-card-shell-label-font-color: var(--solar-dark-text-color, #f2f7ff);
-          --solar-card-shell-header-font-color: var(--solar-dark-text-color, #f2f7ff);
-          --primary-text-color: var(--solar-dark-text-color, #f2f7ff);
-          --secondary-text-color: rgba(226, 237, 248, 0.78);
+          --solar-label-font-color: var(--solar-text-color, var(--solar-dark-text-color, #f2f7ff));
+          --solar-header-font-color: var(--solar-text-color, var(--solar-dark-text-color, #f2f7ff));
+          --solar-card-shell-label-font-color: var(--solar-text-color, var(--solar-dark-text-color, #f2f7ff));
+          --solar-card-shell-header-font-color: var(--solar-text-color, var(--solar-dark-text-color, #f2f7ff));
+          --primary-text-color: var(--solar-text-color, var(--solar-dark-text-color, #f2f7ff));
+          --secondary-text-color: var(--solar-secondary-text-color, rgba(226, 237, 248, 0.78));
           color: var(--primary-text-color);
-          text-shadow: none;
+          text-shadow: var(--solar-text-shadow, none);
         }
       `,
     ];

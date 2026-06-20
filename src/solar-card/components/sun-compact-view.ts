@@ -203,7 +203,7 @@ export class SolarSunCompactView extends SolarBaseCard {
           width: 100%;
           flex-direction: column;
           font-size: var(--solar-label-font-size, var(--ha-font-size-m));
-          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
+          color: var(--solar-text-color, var(--solar-card-shell-label-font-color, var(--primary-text-color)));
           text-transform: var(--solar-card-shell-label-text-transform, none);
           align-items: center;
           justify-content: space-between;
@@ -234,7 +234,7 @@ export class SolarSunCompactView extends SolarBaseCard {
           /* padding-bottom: initial; */
           transition: all 300ms ease-in-out;
           flex-direction: column;
-          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
+          color: var(--solar-text-color, var(--solar-card-shell-label-font-color, var(--primary-text-color)));
           justify-items: center;
         }
 
@@ -244,7 +244,7 @@ export class SolarSunCompactView extends SolarBaseCard {
           width: 100%;
           height: 100%;
           text-align: center;
-          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
+          color: var(--solar-text-color, var(--solar-card-shell-label-font-color, var(--primary-text-color)));
           transition: all 0.2s ease-in-out;
           align-items: center;
           justify-content: center;
@@ -285,7 +285,7 @@ export class SolarSunCompactView extends SolarBaseCard {
 
         .compact-item-minimal span.label {
           font-weight: 600;
-          color: var(--solar-card-shell-label-font-color, var(--primary-text-color));
+          color: var(--solar-text-color, var(--solar-card-shell-label-font-color, var(--primary-text-color)));
           white-space: nowrap;
           overflow: hidden;
           font-size: 1.3rem;
@@ -309,7 +309,7 @@ export class SolarSunCompactView extends SolarBaseCard {
           align-items: center;
           padding-top: 8px;
           text-transform: var(--solar-card-shell-header-text-transform, capitalize);
-          color: var(--solar-card-shell-header-font-color, var(--primary-text-color));
+          color: var(--solar-text-color, var(--solar-card-shell-header-font-color, var(--primary-text-color)));
           white-space: nowrap;
         }
         .moon-only-container {

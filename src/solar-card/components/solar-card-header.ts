@@ -125,7 +125,7 @@ export class SolarCardHeader extends SolarBaseCard {
         .title {
           overflow: hidden;
           text-overflow: ellipsis;
-          color: var(--solar-header-font-color, var(--primary-text-color));
+          color: var(--solar-text-color, var(--solar-header-font-color, var(--primary-text-color)));
           text-transform: var(--solar-header-font-style, none);
           font-size: var(--solar-header-font-size, var(--ha-font-size-xl, 20px));
           white-space: nowrap;
@@ -140,7 +140,7 @@ export class SolarCardHeader extends SolarBaseCard {
         }
         .actions,
         .menu-actions {
-          --solar-icon-color: var(--solar-header-font-color, var(--secondary-text-color));
+          --solar-icon-color: var(--solar-text-color, var(--solar-header-font-color, var(--secondary-text-color)));
           flex-grow: 0;
           flex-shrink: 0;
         }

@@ -126,7 +126,7 @@ export class SolarSunDataInfo extends SolarBaseCard {
           padding: 0;
           margin: 0;
           overflow: hidden;
-          --swiper-theme-color: var(--solar-label-font-color, var(--primary-text-color));
+          --swiper-theme-color: var(--solar-text-color, var(--solar-label-font-color, var(--primary-text-color)));
         }
         section {
           display: block;
@@ -190,7 +190,7 @@ export class SolarSunDataInfo extends SolarBaseCard {
           padding-block: 3px;
           width: 100%;
           box-sizing: border-box;
-          color: var(--solar-label-font-color, var(--primary-text-color));
+          color: var(--solar-text-color, var(--solar-label-font-color, var(--primary-text-color)));
           font-size: var(--solar-label-font-size, auto);
           text-transform: var(--solar-label-font-style, none);
         }
@@ -242,7 +242,7 @@ export class SolarSunDataInfo extends SolarBaseCard {
         }
         .value span.direction-arrow {
           transition: transform 0.3s ease-in-out;
-          color: var(--solar-label-font-color, var(--secondary-text-color));
+          color: var(--solar-text-color, var(--solar-label-font-color, var(--secondary-text-color)));
         }
 
         .value:has(.direction-arrow) {

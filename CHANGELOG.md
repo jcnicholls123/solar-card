@@ -2,6 +2,16 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.9] - 2026-06-20
+
+### Added
+
+- Added `--solar-text-color`, `--solar-secondary-text-color`, and `--solar-text-shadow` hooks for CSS-controlled backgrounds.
+
+### Changed
+
+- Removed the default embossed text shadow so externally styled backgrounds start with clean text.
+
 ## [1.0.8] - 2026-06-20
 
 ### Fixed

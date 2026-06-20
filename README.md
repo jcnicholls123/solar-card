@@ -74,6 +74,18 @@ weather_entity: weather.home
 | `daylight_hours_entity` | string | Optional daylight-hours sensor. Defaults to `sensor.daylight_hours` when that entity exists. |
 | `graph_chart_config` | object | Horizon chart options. |
 
+### CSS-controlled backgrounds
+
+When external CSS or card-mod controls the background, set the text variables in the same rule so the card uses the correct contrast:
+
+```css
+--solar-text-color: #f2f7ff;
+--solar-secondary-text-color: rgba(226, 237, 248, 0.78);
+--solar-text-shadow: none;
+```
+
+Use a dark value for `--solar-text-color` on light backgrounds and a light value on dark backgrounds.
+
 ## Build
 
 ```bash
