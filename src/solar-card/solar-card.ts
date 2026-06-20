@@ -305,6 +305,7 @@ export class SolarCard extends SolarBaseCard {
     const classes = {
       compact: appearance?.compact_view === true,
       '--has-bg': appearance?.hide_background !== true,
+      '--dark-bg': appearance?.theme_mode === 'dark',
     };
     return classMap(classes);
   }
@@ -441,6 +442,14 @@ export class SolarCard extends SolarBaseCard {
           color: var(--primary-text-color);
           text-shadow: 0 1px 2px rgba(255, 255, 255, 0.52);
           box-shadow: none !important;
+        }
+
+        :host([dark-mode]) ha-card.--has-bg,
+        ha-card.--has-bg.--dark-bg {
+          --primary-text-color: var(--solar-label-font-color, #f2f7ff);
+          --secondary-text-color: rgba(226, 237, 248, 0.78);
+          color: var(--primary-text-color);
+          text-shadow: 0 1px 2px rgba(0, 12, 28, 0.72);
         }
       `,
     ];

@@ -2,6 +2,13 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.7] - 2026-06-20
+
+### Fixed
+
+- Added a high-contrast light text palette for dark Home Assistant themes and `theme_mode: dark` backgrounds.
+- Replaced the bright text shadow on dark backgrounds with a subtle dark shadow for clearer labels.
+
 ## [1.0.6] - 2026-06-06
 
 ### Fixed
