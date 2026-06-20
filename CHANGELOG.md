@@ -2,6 +2,13 @@
 
 All notable changes to Solar Card are tracked here.
 
+## [1.0.8] - 2026-06-20
+
+### Fixed
+
+- Made dark-mode detection deterministic even when Home Assistant reuses its theme object.
+- Applied the light dark-mode palette directly to all header and label variables and removed the embossed text shadow.
+
 ## [1.0.7] - 2026-06-20
 
 ### Fixed

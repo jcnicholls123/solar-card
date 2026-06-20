@@ -24,6 +24,7 @@ import { computeStubConfig } from '../utils/compute-stub-config';
 import { debounce } from '../utils/debounce';
 import { applyTheme } from '../utils/ha-helper';
 import { SolarBaseCard } from './base-card';
+import { computeDarkMode } from './base-element';
 import { SOLAR_CARD_EDITOR_NAME, SOLAR_CARD_NAME } from './const';
 import { DEFAULT_BG_URL } from './css/card-styles';
 
@@ -302,10 +303,12 @@ export class SolarCard extends SolarBaseCard {
 
   private _computeClasses() {
     const appearance = this._configAppearance;
+    const useDarkBackground =
+      appearance?.theme_mode === 'dark' || (appearance?.theme_mode !== 'light' && computeDarkMode(this.hass));
     const classes = {
       compact: appearance?.compact_view === true,
       '--has-bg': appearance?.hide_background !== true,
-      '--dark-bg': appearance?.theme_mode === 'dark',
+      '--dark-bg': useDarkBackground,
     };
     return classMap(classes);
   }
@@ -446,10 +449,14 @@ export class SolarCard extends SolarBaseCard {
 
         :host([dark-mode]) ha-card.--has-bg,
         ha-card.--has-bg.--dark-bg {
-          --primary-text-color: var(--solar-label-font-color, #f2f7ff);
+          --solar-label-font-color: var(--solar-dark-text-color, #f2f7ff);
+          --solar-header-font-color: var(--solar-dark-text-color, #f2f7ff);
+          --solar-card-shell-label-font-color: var(--solar-dark-text-color, #f2f7ff);
+          --solar-card-shell-header-font-color: var(--solar-dark-text-color, #f2f7ff);
+          --primary-text-color: var(--solar-dark-text-color, #f2f7ff);
           --secondary-text-color: rgba(226, 237, 248, 0.78);
           color: var(--primary-text-color);
-          text-shadow: 0 1px 2px rgba(0, 12, 28, 0.72);
+          text-shadow: none;
         }
       `,
     ];
